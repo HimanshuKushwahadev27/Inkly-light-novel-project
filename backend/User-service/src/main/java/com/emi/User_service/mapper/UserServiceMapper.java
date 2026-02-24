@@ -20,7 +20,7 @@ public class UserServiceMapper {
 		user.setDisplayName(request.displayName());
 		user.setKeycloakId(keycloakId);
 		user.setProfileImageUrl(request.profileImgUrl());
-		
+		user.setIsDeleted(false);
 		return user;
 	}
 

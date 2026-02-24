@@ -6,9 +6,11 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.emi.User_service.entity.Review;
+import com.emi.User_service.entity.User;
 import com.emi.User_service.exception.ReviewNotFoundException;
 import com.emi.User_service.mapper.ReviewMapper;
 import com.emi.User_service.repository.ReviewRepo;
+import com.emi.User_service.repository.UserRepo;
 import com.emi.User_service.requestDto.RequestReviewDto;
 import com.emi.User_service.responseDto.ResponseReviewDto;
 import com.emi.User_service.service.ReviewService;
@@ -19,7 +21,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 
 public class ReviewServiceImpl implements ReviewService {
-
+	
+	private final UserRepo userRepo;
 	private final ReviewMapper reviewMapper;
 	private final ReviewRepo reviewRepo;
 
@@ -29,7 +32,10 @@ public class ReviewServiceImpl implements ReviewService {
 		if(reviewRepo.existsByKeycloakIdAndBookId(keycloakId, request.bookId())) {
 			throw new IllegalArgumentException("You can't review again");
 		}
-		Review review = reviewMapper.toEntity(request, keycloakId);
+		
+		User user = userRepo.findByKeycloakId(keycloakId);
+		
+		Review review = reviewMapper.toEntity(request, keycloakId, user.getId());
 		reviewRepo.save(review);
 		return reviewMapper.toDto(review);
 	}
@@ -46,9 +52,13 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public String delete(UUID id) {
+	public String delete(UUID id, UUID keycloakId) {
 		Review review = reviewRepo.findById(id)
 				.orElseThrow(() -> new ReviewNotFoundException("No review found with the id " + id));
+		
+		if(!review.getKeycloakId().equals(keycloakId)) {
+			throw new IllegalArgumentException("not authorized");
+		}
 		
 		reviewRepo.deleteById(review.getId());
 		

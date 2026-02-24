@@ -12,5 +12,5 @@ public interface ReviewService {
 	
 	public List<ResponseReviewDto> get(UUID bookId);
 	
-	public String delete(UUID id);
+	public String delete(UUID id, UUID keycloakId);
 }

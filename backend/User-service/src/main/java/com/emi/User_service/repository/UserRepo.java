@@ -10,4 +10,6 @@ public interface UserRepo extends JpaRepository<User, UUID> {
 
 	boolean existsByKeycloakId(UUID keycloakId);
 
+	User findByKeycloakId(UUID keycloakId);
+
 }

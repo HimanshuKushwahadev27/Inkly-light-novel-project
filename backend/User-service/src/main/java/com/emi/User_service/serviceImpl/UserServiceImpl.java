@@ -96,6 +96,7 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		user.setIsDeleted(true);
+		userRepo.save(user);
 		return "User with id " +id+ " is removed";
 	}
 

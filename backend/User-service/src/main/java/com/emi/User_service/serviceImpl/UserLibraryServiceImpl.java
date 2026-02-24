@@ -50,7 +50,7 @@ public class UserLibraryServiceImpl implements UserLibraryService {
 	@Override
 	public String delete(UUID id, UUID keycloakId) {
 		
-		if (userLibraryRepo.existsByIdAndKeycloakId(id, keycloakId)) {
+		if (!userLibraryRepo.existsByIdAndKeycloakId(id, keycloakId)) {
 			throw new BookExistsInLibraryException(
 					"book with id " + id + "is not found for the given user");
 		}

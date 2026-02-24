@@ -1,5 +1,6 @@
 package com.emi.User_service.mapper;
 
+import java.time.Instant;
 import java.util.UUID;
 
 import org.springframework.stereotype.Component;
@@ -11,14 +12,28 @@ import com.emi.User_service.responseDto.ResponseReviewDto;
 @Component
 public class ReviewMapper {
 
-	public Review toEntity(RequestReviewDto request, UUID keycloakId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Review toEntity(RequestReviewDto request, UUID keycloakId, UUID userId) {
+		
+		Review review = new Review();
+		review.setBookId(request.bookId());
+		review.setComment(request.comment());
+		review.setKeycloakId(keycloakId);
+		review.setCreatedAt(Instant.now());
+		review.setRating(request.rating());
+		review.setUserId(userId);
+		
+		return review;
 	}
 
 	public ResponseReviewDto toDto(Review review) {
-		// TODO Auto-generated method stub
-		return null;
+	 return new	ResponseReviewDto(
+			 review.getId(),
+			 review.getBookId(),
+			 review.getUserId(),
+			 review.getRating(),
+			 review.getComment(),
+			 review.getCreatedAt()
+			 );
 	}
 
 }

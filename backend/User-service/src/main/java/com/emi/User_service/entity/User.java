@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "user_profiles")
+
 public class User {
 
     @Id
@@ -22,7 +23,7 @@ public class User {
     private UUID id;
 
     @Column(name = "keycloak_id", nullable = false, unique = true)
-    private UUID keycloakId;   // JWT sub
+    private UUID keycloakId;   
 
     @Column(name = "display_name")
     private String displayName;

@@ -17,6 +17,7 @@ import com.emi.Catalog_Service.ResponseDtos.ResponseBookDto;
 import com.emi.Catalog_Service.ResponseDtos.ResponseFullBookDto;
 import com.emi.Catalog_Service.Services.BookContentService;
 import com.emi.Catalog_Service.Services.BookService;
+import com.emi.Catalog_Service.enums.BookLifeCycleStatus;
 import com.emi.Catalog_Service.enums.BookVisibilityStatus;
 import com.emi.Catalog_Service.exception.BookDeletedException;
 import com.emi.Catalog_Service.exception.BookNotFoundException;
@@ -113,13 +114,13 @@ public class BookServiceImpl implements BookService {
 			throw new BookDeletedException("Book with id: " + requestDto.bookId() + " has been already deleted.");
 		}
 		
-<<<<<<< HEAD
+
 		if(!book.getAuthorSnapshots().stream().anyMatch(snapshot -> snapshot.getId().equals(authorId))){
 			throw new NotAuthorizedException("You are not authorized to make any changes to book with Id " + book.getId());
 		}
 		
 		book=bookMapper.updateBookEntity(requestDto, book);
-=======
+
 
 		book=bookMapper.updateBookEntity(requestDto, book);
 		if(!book.getAuthorSnapshots().stream().anyMatch(snapshot -> snapshot.getId().equals(authorId))){
@@ -128,10 +129,11 @@ public class BookServiceImpl implements BookService {
 		
 		book = bookMapper.updateBookEntity(requestDto, book);
 		
-		if(requestDto.status() == BookStatus.PUBLIC) {
-			book.setStatus(BookStatus.PUBLIC);
+		if(requestDto.visibilityStatus() != BookVisibilityStatus.DELETE) {
+			book.setStatusVisible(requestDto.visibilityStatus());
 		}
->>>>>>> catalog-service
+
+		book.setStatusLifecycle(requestDto.lifeCycleStatus());
 		
 		bookRepo.save(book);
 		
