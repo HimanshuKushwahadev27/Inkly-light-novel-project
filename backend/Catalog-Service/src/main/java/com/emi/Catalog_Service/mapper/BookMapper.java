@@ -1,8 +1,7 @@
 package com.emi.Catalog_Service.mapper;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -14,7 +13,10 @@ import com.emi.Catalog_Service.RequestDtos.RequestBookCreationDto;
 import com.emi.Catalog_Service.RequestDtos.RequsestBookUpdateDto;
 import com.emi.Catalog_Service.ResponseDtos.ResponseBookDto;
 import com.emi.Catalog_Service.ResponseDtos.ResponseFullBookDto;
+import com.emi.Catalog_Service.enums.BookLifeCycleStatus;
+import com.emi.Catalog_Service.enums.BookVisibilityStatus;
 import com.emi.events.BookPublishedEvent;
+import com.emi.events.BookUpdatedEvent;
 
 @Component
 public class BookMapper {
@@ -87,6 +89,7 @@ public class BookMapper {
 	
 	
 	public BookPublishedEvent  emitCreateBookEvent(Book book) {
+		
 		BookPublishedEvent event = BookPublishedEvent.newBuilder()
 		        .setBookId(book.getId().toString())
 		        .setTitle(book.getTitle())
@@ -97,6 +100,43 @@ public class BookMapper {
 		        .setFreePreviewAvailable(book.getFreePreview())
 		        .setPublishedAt(System.currentTimeMillis())
 		        .build();
+		
+		if(book.getStatusLifecycle()==BookLifeCycleStatus.ONGOING) {
+			event.setLifeCycleStatus(com.emi.events.BookLifeCycleStatus.ONGOING);
+		}else {
+			event.setLifeCycleStatus(com.emi.events.BookLifeCycleStatus.COMPLETED);
+		}
+		
+		if(book.getStatusVisible() == BookVisibilityStatus.PUBLIC) {
+			event.setVisibilityStatus(com.emi.events.BookVisibilityStatus.PUBLIC);
+		}else {
+			event.setVisibilityStatus(com.emi.events.BookVisibilityStatus.PRIVATE);
+		}
+		
+		return event;
+	}
+	
+	public BookUpdatedEvent emitUpdateEvent(Book book) {
+		BookUpdatedEvent event = BookUpdatedEvent.newBuilder()
+		        .setBookId(book.getId().toString())
+		        .setTitle(book.getTitle())
+		        .setDescription(book.getDescription())
+		        .setPrice(book.getPrice().doubleValue())
+		        .setFreePreview(book.getFreePreview())
+		        .setUpdatedAt(System.currentTimeMillis())
+		        .build();
+		
+		if(book.getStatusLifecycle()==BookLifeCycleStatus.ONGOING) {
+			event.setLifeCycleStatus(com.emi.events.BookLifeCycleStatus.ONGOING);
+		}else {
+			event.setLifeCycleStatus(com.emi.events.BookLifeCycleStatus.COMPLETED);
+		}
+		
+		if(book.getStatusVisible() == BookVisibilityStatus.PUBLIC) {
+			event.setVisibilityStatus(com.emi.events.BookVisibilityStatus.PUBLIC);
+		}else {
+			event.setVisibilityStatus(com.emi.events.BookVisibilityStatus.PRIVATE);
+		}
 		
 		return event;
 	}

@@ -10,6 +10,26 @@
     { "name": "authorNames", "type": { "type": "array", "items": "string" } },
     { "name": "genres", "type": { "type": "array", "items": "string" } },
     { "name": "freePreviewAvailable", "type": "boolean" },
+    {
+      "name": "lifeCycleStatus",
+      "type": {
+        "type": "enum",
+        "name": "BookLifeCycleStatus",
+        "symbols": ["DRAFT", "ONGOING", "COMPLETED"]
+      }
+    },
+    { 
+      "name": "visibilityStatus",
+      "type": [
+        "null",
+        {
+          "type": "enum",
+          "name": "BookVisibilityStatus",
+          "symbols": ["PRIVATE", "PUBLIC", "DELETE"]
+        }
+      ],
+      "default": null
+    },
     { "name": "publishedAt", "type": "long" }
   ]
 }

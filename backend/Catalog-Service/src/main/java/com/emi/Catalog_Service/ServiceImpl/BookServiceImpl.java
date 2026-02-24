@@ -26,6 +26,7 @@ import com.emi.Catalog_Service.mapper.AuthorSnapshotMapper;
 import com.emi.Catalog_Service.mapper.BookMapper;
 import com.emi.Catalog_Service.mapper.GenreSnapshotMapper;
 import com.emi.events.BookPublishedEvent;
+import com.emi.events.BookUpdatedEvent;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -140,6 +141,9 @@ public class BookServiceImpl implements BookService {
 		book.setStatusLifecycle(requestDto.lifeCycleStatus());
 		
 		bookRepo.save(book);
+		
+		BookUpdatedEvent event = bookMapper.emitUpdateEvent(book);
+		catalogProducerService.sendBookUpdatedEvent(event);
 		
 		return bookMapper.returnUpdatedBook(requestDto, book.getTotalChapters());
 		
