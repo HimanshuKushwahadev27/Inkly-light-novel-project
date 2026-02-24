@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,23 +30,33 @@ public class AuthorController {
 	private final AuthorService authorService;
 	
 	@PostMapping("/register")
-	public ResponseEntity<ResponseAuthorDto> register(@RequestBody @Valid RequestAuthorDto request) {
-		return ResponseEntity.ok(authorService.register(request, null));
+	public ResponseEntity<ResponseAuthorDto> register(
+			@RequestBody @Valid RequestAuthorDto request,
+			@RequestHeader("X-User-Id") String keycloakId) {
+		return ResponseEntity.ok(authorService.register(request, UUID.fromString(keycloakId)));
 	}
 	
-	@PatchMapping("/update")
-	public ResponseEntity<ResponseAuthorDto> update(@RequestBody @Valid RequestAuthorDto request, @PathVariable  UUID authorID) {
-		return ResponseEntity.ok(authorService.update(request, authorID, authorID));
+	@PatchMapping("/update/{authorID}")
+	public ResponseEntity<ResponseAuthorDto> update(
+			@RequestBody @Valid RequestAuthorDto request,
+			@PathVariable  UUID authorID, 
+			@RequestHeader("X-User-Id") String keycloakId) {
+		return ResponseEntity.ok(authorService.update(request, authorID, UUID.fromString(keycloakId)));
 	}
-	@DeleteMapping("/delete")
-	public ResponseEntity<String> delete(@PathVariable UUID authorId) {
-		return ResponseEntity.ok(authorService.delete(authorId, authorId));
+	
+	@DeleteMapping("/delete/{authorId}")
+	public ResponseEntity<String> delete(
+			@PathVariable UUID authorId,
+			@RequestHeader("X-User-Id") String keycloakId) {
+		return ResponseEntity.ok(authorService.delete(authorId, UUID.fromString(keycloakId)));
 	}
 	
 	
 	@GetMapping("/get/{authorId}")
-	public ResponseEntity<ResponseAuthorDto> get(@PathVariable UUID authorId) {
-		return ResponseEntity.ok(authorService.get(authorId, authorId));
+	public ResponseEntity<ResponseAuthorDto> get(@PathVariable UUID authorId,
+			@RequestHeader("X-User-Id") String keycloakId) {
+		
+		return ResponseEntity.ok(authorService.get(authorId, UUID.fromString(keycloakId)));
 	}
 	
 	@GetMapping("/gets")

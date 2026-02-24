@@ -19,10 +19,10 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class AuthroServiceImpl implements AuthorService {
+public class AuthorServiceImpl implements AuthorService {
 
-	private AuthorRepo authorRepo;
-	private AuthorMapper authorMapper;
+	private final  AuthorRepo authorRepo;
+	private final AuthorMapper authorMapper;
 	
 	@Override
 	public ResponseAuthorDto register(RequestAuthorDto request, UUID keycloakId) {
@@ -40,7 +40,7 @@ public class AuthroServiceImpl implements AuthorService {
 	}
 
 	@Override
-	public ResponseAuthorDto update(RequestAuthorDto request, UUID keycloakId, UUID authorId) {
+	public ResponseAuthorDto update(RequestAuthorDto request, UUID authorId, UUID keycloakId) {
 		
 		if(!authorRepo.existsByKeycloakId(keycloakId)) {
 			throw new RegisteredAuthorException("You are not registered as an author please register first");
@@ -75,15 +75,15 @@ public class AuthroServiceImpl implements AuthorService {
 		Author author = authorRepo
 				.findById(authorId)
 				.orElseThrow(
-						() -> new RegisteredAuthorException("Authot not found for the id "+ authorId)
+						() -> new RegisteredAuthorException("Author not found for the id "+ authorId)
 						);
 		
 		if(!author.getKeycloakId().equals(keycloakId)) {
-			throw new IllegalArgumentException("Id doesnt matches");
+			throw new IllegalArgumentException("Id doesn't matches");
 		}
 		
 		if(author.isDeleted()) {
-			throw new DeletedException("authro is deleted");
+			throw new DeletedException("author is deleted");
 		}
 		
 		author.setDeleted(true);

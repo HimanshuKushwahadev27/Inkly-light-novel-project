@@ -24,7 +24,6 @@ import com.emi.Catalog_Service.Entity.Genre;
 import com.emi.Catalog_Service.Repository.BookContentRepo;
 import com.emi.Catalog_Service.Repository.BookRepository;
 import com.emi.Catalog_Service.Repository.GenreRepo;
-import com.emi.Catalog_Service.RequestDtos.RequestBookCreationDto;
 import com.emi.Catalog_Service.RequestDtos.RequestCreateContentDto;
 import com.emi.Catalog_Service.ResponseDtos.ResponseContentDto;
 import com.emi.Catalog_Service.Snapshots.AuthorSnapshots;
