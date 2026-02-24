@@ -17,7 +17,6 @@ import com.emi.Catalog_Service.ResponseDtos.ResponseBookDto;
 import com.emi.Catalog_Service.ResponseDtos.ResponseFullBookDto;
 import com.emi.Catalog_Service.Services.BookContentService;
 import com.emi.Catalog_Service.Services.BookService;
-import com.emi.Catalog_Service.enums.BookLifeCycleStatus;
 import com.emi.Catalog_Service.enums.BookVisibilityStatus;
 import com.emi.Catalog_Service.exception.BookDeletedException;
 import com.emi.Catalog_Service.exception.BookNotFoundException;

@@ -39,7 +39,7 @@ public class Book_Content {
 	@Column(name="price", nullable=false)
 	private BigDecimal price;
 	
-	@Lob
+	
 	@Column(name="content", nullable=false, columnDefinition="TEXT")
 	private String content;
 	

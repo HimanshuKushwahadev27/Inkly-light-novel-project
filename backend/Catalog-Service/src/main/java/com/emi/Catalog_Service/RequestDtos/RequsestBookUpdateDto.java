@@ -41,6 +41,8 @@ public record RequsestBookUpdateDto (
 	    )
 		String description,
 		
+		
+		
 	    @NotNull
 	    @Schema(
 	        description = "Whether free preview is enabled for the book",

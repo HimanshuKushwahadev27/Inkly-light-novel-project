@@ -35,6 +35,8 @@ public class BookMapper {
 	public ResponseBookDto toDto(Book savedBook) {
 		return new ResponseBookDto(
 				savedBook.getId(),
+				savedBook.getPrice(),
+				savedBook.getDescription(),
 				savedBook.getStatusLifecycle(),
 				savedBook.getStatusVisible(),
 				savedBook.getTotalChapters(),
@@ -71,6 +73,8 @@ public class BookMapper {
 	public ResponseBookDto returnUpdatedBook(RequsestBookUpdateDto request, Integer totalChapters) {
 		return new ResponseBookDto(
 				request.bookId(),
+				request.price(),
+				request.description(),
 				request.lifeCycleStatus(),
 				request.visibilityStatus(),
 				totalChapters,
