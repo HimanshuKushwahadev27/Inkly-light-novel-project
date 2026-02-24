@@ -25,6 +25,7 @@ import com.emi.Catalog_Service.exception.NotAuthorizedException;
 import com.emi.Catalog_Service.mapper.AuthorSnapshotMapper;
 import com.emi.Catalog_Service.mapper.BookMapper;
 import com.emi.Catalog_Service.mapper.GenreSnapshotMapper;
+import com.emi.events.BookPublishedEvent;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
 
-	
+	private final CatalogProducerService catalogProducerService;
 	private final BookContentService contentService;
 	private final BookContentRepo contentRepo;
 	private final BookRepository bookRepo;
@@ -69,6 +70,10 @@ public class BookServiceImpl implements BookService {
 		authorMapper.setAuthorSnapshot(book, requestDto.authorInfo());
 		genreMapper.setGenreSnapshot(book, requestDto.genreInfo());
 		bookRepo.save(book);
+		
+		BookPublishedEvent bookPublishedEvent = bookMapper.emitCreateBookEvent(book);
+		catalogProducerService.sendBookCreatedEvent(bookPublishedEvent);
+		
 		return book.getId();	
 	}
 

@@ -1,6 +1,8 @@
 package com.emi.Catalog_Service.mapper;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -12,6 +14,7 @@ import com.emi.Catalog_Service.RequestDtos.RequestBookCreationDto;
 import com.emi.Catalog_Service.RequestDtos.RequsestBookUpdateDto;
 import com.emi.Catalog_Service.ResponseDtos.ResponseBookDto;
 import com.emi.Catalog_Service.ResponseDtos.ResponseFullBookDto;
+import com.emi.events.BookPublishedEvent;
 
 @Component
 public class BookMapper {
@@ -83,5 +86,18 @@ public class BookMapper {
 	}
 	
 	
-
+	public BookPublishedEvent  emitCreateBookEvent(Book book) {
+		BookPublishedEvent event = BookPublishedEvent.newBuilder()
+		        .setBookId(book.getId().toString())
+		        .setTitle(book.getTitle())
+		        .setDescription(book.getDescription())
+		        .setPrice(book.getPrice().doubleValue())
+		        .setAuthorNames(book.getAuthorSnapshots().stream().map(t -> (CharSequence)t.getName()).toList())
+		        .setGenres(book.getGenreIds().stream().map(t -> (CharSequence)t.getName()).toList())
+		        .setFreePreviewAvailable(book.getFreePreview())
+		        .setPublishedAt(System.currentTimeMillis())
+		        .build();
+		
+		return event;
+	}
 }

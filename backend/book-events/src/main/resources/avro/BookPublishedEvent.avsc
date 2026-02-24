@@ -1,0 +1,15 @@
+{
+  "type": "record",
+  "name": "BookPublishedEvent",
+  "namespace": "com.emi.events",
+  "fields": [
+    { "name": "bookId", "type": "string" },
+    { "name": "title", "type": "string" },
+    { "name": "description", "type": "string" },
+    { "name": "price", "type": "double" },
+    { "name": "authorNames", "type": { "type": "array", "items": "string" } },
+    { "name": "genres", "type": { "type": "array", "items": "string" } },
+    { "name": "freePreviewAvailable", "type": "boolean" },
+    { "name": "publishedAt", "type": "long" }
+  ]
+}
