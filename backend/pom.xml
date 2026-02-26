@@ -19,6 +19,7 @@
         <module>Catalog-Service</module>
         <module>User-service</module>
         <module>Search-service</module>
+        <module>order-service</module>
     </modules>
 
     <properties>
