@@ -7,7 +7,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 import com.emi.order_service.RequestDto.RequestOrderDto;
-import com.emi.order_service.ResponseDto.ResponseOrderCreationDto;
+import com.emi.order_service.ResponseDto.ResponseOrderDto;
 import com.emi.order_service.entity.IdempotencyRecord;
 import com.emi.order_service.enums.IdempotencyStatus;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -38,7 +38,7 @@ public class IdempotencyMapper {
 	}
 
 
-	public IdempotencyRecord updateIdemp(IdempotencyRecord idempotency, ResponseOrderCreationDto response) {
+	public IdempotencyRecord updateIdemp(IdempotencyRecord idempotency, ResponseOrderDto response) {
 		String responseString = "";
 		try {
 		 responseString = objectMapper.writeValueAsString(response);

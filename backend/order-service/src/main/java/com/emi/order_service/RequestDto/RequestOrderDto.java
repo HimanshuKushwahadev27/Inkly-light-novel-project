@@ -1,11 +1,9 @@
 package com.emi.order_service.RequestDto;
 
-import java.math.BigDecimal;
-import java.util.UUID;
+import java.util.List;
 
 public record RequestOrderDto(
-		UUID bookid,
-		BigDecimal price
+        List<OrderItemRequestDto> items
 		) {
 
 }

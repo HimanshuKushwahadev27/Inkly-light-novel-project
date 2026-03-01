@@ -27,14 +27,20 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 	
-	@Column(name = "book_id", nullable = false, unique = false)
-	private UUID bookId;
-	
 	@Column(name = "user_keycloak_id", nullable = false, unique = false)
 	private UUID userKeycloakId;
 	
 	@Column(name = "amount", nullable = false, unique = false)
 	private BigDecimal amount ;
+	
+	@Column(name = "user_email", nullable = false)
+	private String userEmail;
+
+	@Column(name = "first_name", nullable = false)
+	private String firstName;
+
+	@Column(name = "last_name", nullable = false)
+	private String lastName;
 	
 	@Column(name = "status", nullable = false, unique = false)
 	@Enumerated(EnumType.STRING)

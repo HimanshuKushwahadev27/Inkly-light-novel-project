@@ -49,18 +49,6 @@ public class OrderStatusHistoryMapper {
 		
 		return history;
 	}
-
-	public OrderStatusHistory updateHistoryRefund(OrderStatus status, UUID id, UUID userKeycloakId) {
-		OrderStatusHistory history = new OrderStatusHistory();
-		
-		history.setChangedAt(Instant.now());
-		history.setChangedBy(userKeycloakId);
-		history.setNewStatus(OrderStatus.REFUNDED);
-		history.setOldStatus(status);
-		history.setOrderId(id);
-		
-		return history;
-	}
 	
 	public OrderHistoryDto toDto(OrderStatusHistory history){
 		return new OrderHistoryDto(
