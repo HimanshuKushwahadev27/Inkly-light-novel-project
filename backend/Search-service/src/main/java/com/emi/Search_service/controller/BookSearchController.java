@@ -16,7 +16,7 @@ import com.emi.Search_service.service.BookSearchService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/books")
+@RequestMapping("/api/search")
 @RequiredArgsConstructor
 public class BookSearchController {
 

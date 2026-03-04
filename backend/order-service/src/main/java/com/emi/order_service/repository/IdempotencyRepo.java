@@ -13,7 +13,7 @@ import com.emi.order_service.entity.IdempotencyRecord;
 public interface IdempotencyRepo extends JpaRepository<IdempotencyRecord, UUID> {
 
 
-	 Optional<IdempotencyRecord> findByKeycloakIdAndIdempotencyKey(UUID keycloakId, UUID idempotencyId);
+	 Optional<IdempotencyRecord> findByUserKeycloakIdAndIdempotencyKey(UUID keycloakId, UUID idempotencyId);
 
 	 @Modifying
 	 @Query("DELETE FROM IdempotencyRecord i WHERE i.expiresAt < :now")

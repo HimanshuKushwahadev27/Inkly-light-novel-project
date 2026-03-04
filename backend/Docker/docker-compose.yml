@@ -16,7 +16,7 @@ services:
         networks:
             - Library-net
         healthcheck:
-            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            test: [ "CMD-SHELL", "pg_isready -U postgres" ]
             interval: 5s
             timeout: 5s
             retries: 5
@@ -273,7 +273,7 @@ services:
                 condition: service_healthy
         networks:
             - Library-net
-			
+
     payment-service:
         build:
             context: ..
@@ -286,7 +286,23 @@ services:
             SPRING_DATASOURCE_PASSWORD: postgres
             SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8080/realms/Library-realm
         ports:
-            - "8087:8080"
+            - "9094:8080"
+        depends_on:
+            postgres:
+                condition: service_healthy
+        networks:
+            - Library-net
+
+    notification-service:
+        build:
+            context: ..
+            dockerfile: notification-service/Dockerfile
+        container_name: notification-service
+        restart: on-failure
+        environment:
+            SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8080/realms/Library-realm
+        ports:
+            - "9093:8080"
         depends_on:
             postgres:
                 condition: service_healthy

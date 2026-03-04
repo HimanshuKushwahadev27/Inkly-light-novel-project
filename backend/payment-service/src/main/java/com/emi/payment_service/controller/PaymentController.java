@@ -48,8 +48,10 @@ public class PaymentController {
 	}
 	
 	@GetMapping("/get/{paymentId}")
-	public ResponseEntity<ResponsePaymentDto> getPayment(@PathVariable UUID paymentId, @RequestHeader("X-User-Id") String keycloakId) {
-		return ResponseEntity.ok(paymentService.getPayment(paymentId, UUID.fromString(keycloakId)));
+	public ResponseEntity<ResponsePaymentDto> getPayment(
+			@PathVariable UUID paymentId, 
+			@AuthenticationPrincipal Jwt jwt) {
+		return ResponseEntity.ok(paymentService.getPayment(paymentId, UUID.fromString(jwt.getSubject())));
 	}
 	
 	

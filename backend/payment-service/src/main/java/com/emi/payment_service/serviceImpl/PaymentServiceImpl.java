@@ -61,7 +61,7 @@ public class PaymentServiceImpl implements PaymentService {
 		try {
 			idempRepo.save(idempotency);
 		} catch (DataIntegrityViolationException ex) {
-			IdempotencyRecord existing = idempRepo.findByKeycloakIdAndIdempotencyKey(keycloakId, idempotencyId)
+			IdempotencyRecord existing = idempRepo.findByUserKeycloakIdAndIdempotencyKey(keycloakId, idempotencyId)
 					.orElseThrow();
 
 			if (existing.getStatus() == IdempotencyStatus.COMPLETED) {

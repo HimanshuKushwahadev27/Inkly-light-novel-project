@@ -87,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
 		} catch (DataIntegrityViolationException ex) {
 
 			// already present
-			IdempotencyRecord existing = idempotencyRepo.findByKeycloakIdAndIdempotencyKey(keycloakId, idempotencyId)
+			IdempotencyRecord existing = idempotencyRepo.findByUserKeycloakIdAndIdempotencyKey(keycloakId, idempotencyId)
 					.orElseThrow();
 
 			if (existing.getStatus() == IdempotencyStatus.COMPLETED) {
@@ -307,8 +307,4 @@ public class OrderServiceImpl implements OrderService {
 
 		return orderMapper.getResponseToPayment(order);
 	}
-	
-	
-	
-
 }

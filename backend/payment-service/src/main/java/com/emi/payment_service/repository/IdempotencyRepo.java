@@ -10,7 +10,7 @@ import com.emi.payment_service.entity.IdempotencyRecord;
 public interface IdempotencyRepo extends JpaRepository<IdempotencyRecord, UUID> {
 
 
-	 Optional<IdempotencyRecord> findByKeycloakIdAndIdempotencyKey(UUID keycloakId, UUID idempotencyId);
+	 Optional<IdempotencyRecord> findByUserKeycloakIdAndIdempotencyKey(UUID userKeycloakId, UUID idempotencyId);
 
 	
 

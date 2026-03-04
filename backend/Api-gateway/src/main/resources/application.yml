@@ -31,6 +31,21 @@ spring:
               predicates:
                 - Path=/api/user/**
 
+            - id: order-service
+              uri: http://order-service:8080
+              predicates:
+                - Path=/api/orders/**
+ 
+            - id: payment-service
+              uri: http://payment-service:8080
+              predicates:
+                - Path=/api/payments/**
+
+            - id: Search-service
+              uri: http://Search-service:8080
+              predicates:
+                - Path=/api/search/**
+
             - id: authoring-service-api-docs
               uri: http://authoring-service:8080
               predicates:
@@ -44,6 +59,29 @@ spring:
                 - Path=/aggregate/catalog-service/api-docs
               filters:
                 - RewritePath=/aggregate/catalog-service/api-docs, /api-docs
+            
+
+            - id: order-service-api-docs
+              uri: http://order-service:8080
+              predicates:
+                - Path=/aggregate/order-service/api-docs
+              filters:
+                 - RewritePath=/aggregate/order-service/api-docs, /api-docs
+
+            - id: payment-service-api-docs
+              uri: http://payment-service:8080
+              predicates:
+                - Path=/aggregate/payment-service/api-docs
+              filters:
+                - RewritePath=/aggregate/payment-service/api-docs, /api-docs
+
+            - id: Search-Service-api-docs
+              uri: http://Search-service:8080
+              predicates:
+               - Path=/aggregate/Search-service/api-docs
+              filters:
+               - RewritePath=/aggregate/Search-service/api-docs, /api-docs	
+
 
             - id: user-service-api-docs
               uri: http://user-service:8080
@@ -84,6 +122,12 @@ springdoc:
         url: /aggregate/author-service/api-docs
       - name: User service
         url: /aggregate/user-service/api-docs
+      - name: Order service
+        url: /aggregate/order-service/api-docs
+      - name: Search service
+        url: /aggregate/search-service/api-docs
+      - name: Payment service
+        url: /aggregate/payment-service/api-docs
 
 management:
   endpoints:

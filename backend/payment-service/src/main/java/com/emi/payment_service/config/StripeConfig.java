@@ -1,6 +1,7 @@
 package com.emi.payment_service.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -12,8 +13,8 @@ public class StripeConfig {
 	   @Value("${stripe.secret-key}")
 	    private String secretKey;
 	   
-	   
-	   public WebClient stipeClient(WebClient.Builder builder) {
+	   @Bean
+	   WebClient stripeClient(WebClient.Builder builder) {
 		   return builder
 				   	.baseUrl("https://api.stripe.com")
 				   	.defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer ", secretKey)
@@ -21,4 +22,9 @@ public class StripeConfig {
 				   	.build()
 				   	;
 	   }
+	   
+	    @Bean
+	    WebClient.Builder webClientBuilder() {
+	        return WebClient.builder();
+	    }
 }

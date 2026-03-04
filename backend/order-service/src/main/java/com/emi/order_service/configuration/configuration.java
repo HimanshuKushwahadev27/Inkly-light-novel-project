@@ -7,6 +7,8 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.micrometer.observation.ObservationRegistry;
 import io.micrometer.observation.aop.ObservedAspect;
 import jakarta.annotation.PostConstruct;
@@ -39,4 +41,9 @@ public class configuration {
 			).build()
 			;
 	}
+	
+    @Bean
+    ObjectMapper objectMapper() {
+       return new ObjectMapper();
+   }
 }

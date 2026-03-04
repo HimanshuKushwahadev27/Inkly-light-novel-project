@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.emi.payment_service.ResponseDto.ResponseOrderDto;
 
-
 @FeignClient(value = "order-service", url = "http://order-service:8080")
 public interface OrderClient {
 
