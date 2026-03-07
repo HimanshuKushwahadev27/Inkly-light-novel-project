@@ -1,0 +1,28 @@
+<mat-toolbar class="navbar">
+
+  <!-- LEFT -->
+  <div class="nav-left">
+    <span class="logo">Inkly</span>
+  </div>
+
+  <!-- CENTER -->
+  <div class="nav-center">
+
+    <mat-form-field appearance="outline" class="search-box">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput placeholder="Search books..." />
+    </mat-form-field>
+
+    <button mat-button class="categories-btn">
+      <mat-icon>category</mat-icon>
+      Categories
+    </button>
+
+  </div>
+
+  <!-- RIGHT -->
+  <div class="nav-right">
+    <app-auth-button></app-auth-button>
+  </div>
+
+</mat-toolbar>

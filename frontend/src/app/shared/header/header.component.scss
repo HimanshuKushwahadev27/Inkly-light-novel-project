@@ -1,0 +1,30 @@
+.navbar{
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 24px; 
+}
+
+.logo{
+  font-size:20px;
+  font-weight:600;
+}
+
+.nav-center{
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.search-box{
+  width:260px;
+  margin-top:6px;  
+}
+
+.categories-btn{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
