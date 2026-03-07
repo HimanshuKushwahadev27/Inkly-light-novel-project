@@ -6,12 +6,6 @@
         (click)="authService.login()">
   Login
 </button>
-
-<button mat-stroked-button color="accent"
-        (click)="authService.register()">
-  Register
-</button>
-
 }
 
 @if (authService.isAuthenticated()) {

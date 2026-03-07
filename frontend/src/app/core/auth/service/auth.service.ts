@@ -5,24 +5,23 @@ import { authConfig } from '../auth.config';
 @Injectable({
   providedIn: 'root',
 })
+
 export class AuthService {
   
+
   isAuthenticated = signal(false);
   
   constructor(private oauthService: OAuthService) {
-    this.configure();
   }
 
-  
-  configure(){
+    initLogin() {
+
     this.oauthService.configure(authConfig);
-     this.oauthService
-    .loadDiscoveryDocumentAndTryLogin()
-    .then(() => {
-      this.isAuthenticated.set(
-        this.oauthService.hasValidAccessToken()
-      )
-    });
+
+    this.oauthService.setupAutomaticSilentRefresh();
+
+    this.oauthService.loadDiscoveryDocumentAndTryLogin();
+
   }
 
   login(){
@@ -45,12 +44,6 @@ export class AuthService {
   getUser() {
     const claims: any = this.oauthService.getIdentityClaims();
     console.log(claims);
-  }
-
-  register(){
-    this.oauthService.initCodeFlow(undefined, {
-     kc_action : 'register' 
-    })
   }
 
 }

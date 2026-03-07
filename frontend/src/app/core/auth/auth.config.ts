@@ -10,3 +10,4 @@ export const authConfig : AuthConfig = {
   showDebugInformation: true,
   requireHttps: false
 }
+

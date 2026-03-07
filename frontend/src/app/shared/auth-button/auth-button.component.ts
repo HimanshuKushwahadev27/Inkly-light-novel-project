@@ -22,11 +22,7 @@ export class AuthButtonComponent {
 
   logout(){
     this.authService.logout();
-  }
-
-  register(){
-    this.authService.register();
-  }
+    window.location.href=  'http://localhost:8181/realms/Library-realm/protocol/openid-connect/logout?redirect_uri=http://127.0.0.1:4200/'  }
 
   isAuthenticated(){
     this.authService.isAuthenticated;
