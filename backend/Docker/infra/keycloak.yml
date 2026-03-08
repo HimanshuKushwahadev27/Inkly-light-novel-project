@@ -17,7 +17,12 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:24.0.1
     container_name: keycloak
-    command: start-dev
+    command:
+      - start-dev
+      - --import-realm
+      - --spi-theme-cache-themes=false
+      - --spi-theme-cache-templates=false
+      - --spi-theme-static-max-age=-1
     depends_on:
       - keycloak-db
     environment:
@@ -31,10 +36,15 @@ services:
       - "8181:8080"
     networks:
       - Library-net
+    volumes:
+      - ../../keycloak-themes:/opt/keycloak/themes
+      - ../keycloak:/opt/keycloak/data/import
 
 volumes:
   keycloak_db_data:
+     name: docker_keycloak_db_data
 
 networks:
   Library-net:
-    external: true
+      external: true
+      name: Library-net

@@ -27,3 +27,4 @@ volumes:
 networks:
   Library-net:
     external: true
+    name: Library-net
