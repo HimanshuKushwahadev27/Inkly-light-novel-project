@@ -23,7 +23,7 @@ public class BookSearchController {
     private final BookSearchService searchService;
 
     
-    @GetMapping("/search")
+    @GetMapping
     public Page<BookDocument> search(
             @RequestParam(required = false) String q,
             @RequestParam(required = false) String genre,

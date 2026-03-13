@@ -44,11 +44,10 @@ public class UserController {
 		return ResponseEntity.ok(userService.update(request, UUID.fromString(jwt.getSubject())));
 	}
 	
-	@GetMapping("/get/{id}")
+	@GetMapping("/get")
 	public ResponseEntity<UserResponseDto>  get(
-			@PathVariable UUID id,
 			@AuthenticationPrincipal Jwt jwt){
-		return ResponseEntity.ok(userService.get(id, UUID.fromString(jwt.getSubject())));
+		return ResponseEntity.ok(userService.get(UUID.fromString(jwt.getSubject())));
 	}
 	
 	@DeleteMapping("/delete/{id}")

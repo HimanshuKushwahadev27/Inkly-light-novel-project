@@ -61,19 +61,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserResponseDto get(UUID id, UUID keycloakId) {
+	public UserResponseDto get( UUID keycloakId) {
 		User user = userRepo
-				.findById(id)
+				.findByKeycloakId(keycloakId)
 				.orElseThrow(
 						() -> new  UserExistsException("You are not registered as an user")
 						);
 		
 		if(user.getIsDeleted()) {
-			throw new DeletedException("user is deleted of id " +id);
-		}
-		
-		if(!user.getKeycloakId().equals(keycloakId)) {
-			throw new IllegalArgumentException("Id doesnt match");
+			throw new DeletedException("user is deleted of keycloakid " +keycloakId);
 		}
 		
 		return userServiceMapper.toDto(user);

@@ -1,6 +1,5 @@
 <div class="genres-container">
 
-  <h2>Categories</h2>
 
   @if (genres$ | async; as genres) {
 
@@ -8,9 +7,10 @@
 
       @for (genre of genres; track genre.genreId) {
 
-        <div class="genre-card">
-          {{ genre.name }}
-        </div>
+        <app-card
+          [title]="genre.name"
+          [description]="genre.description">
+        </app-card>
 
       }
 
@@ -18,7 +18,14 @@
 
   } @else {
 
-    <p>Loading genres...</p>
+    <div class="loading-wrapper">
+
+      <app-card
+        title="Loading genres..."
+        [loading]="true">
+      </app-card>
+
+    </div>
 
   }
 

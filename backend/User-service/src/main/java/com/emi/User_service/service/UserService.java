@@ -13,7 +13,7 @@ public interface UserService {
 	
 	public UserResponseDto update(UserUpdateRequestDto request, UUID keycloakId);
 	
-	public UserResponseDto get(UUID id, UUID keycloakId);
+	public UserResponseDto get(UUID keycloakId);
 	
 	public String delete(UUID id, UUID keycloakId);
 	

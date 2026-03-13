@@ -1,0 +1,27 @@
+<div class = "create-genre">
+
+  <div class = "create-card">
+
+    <h2>Create-Genre</h2>
+
+    <form [formGroup]="genreForm" (ngSubmit) = "createGenre()">
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Genre Name</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description">
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">
+        Create-Genre
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

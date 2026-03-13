@@ -17,10 +17,6 @@ services:
             SPRING_ELASTICSEARCH_SSL_VERIFICATION_MODE: none
         ports:
             - "8086:8080"
-        depends_on:
-            - broker
-            - schema-registry
-            - opensearch
         networks:
             - Library-net
 

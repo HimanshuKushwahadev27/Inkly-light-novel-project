@@ -1,0 +1,28 @@
+.inkly-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow:0 15px 40px rgba(233,30,99,0.18);
+  text-align: center;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.inkly-card:hover {
+  transform: translateY(-4px);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.card-description {
+  font-size: 14px;
+  color: #666;
+}
+
+.loading {
+  font-size: 16px;
+  color: #888;
+}

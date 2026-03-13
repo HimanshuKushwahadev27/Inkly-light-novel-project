@@ -61,17 +61,15 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
-            "options": {
-              "buildTarget": "Library-frontend:build:development",
-              "proxyConfig": "proxy.conf.json"
-            },
+          "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "Library-frontend:build:production"
             },
             "development": {
-              "buildTarget": "Library-frontend:build:development"
+              "buildTarget": "Library-frontend:build:development",
+              "proxyConfig": "proxy.conf.json"
+
             }
           },
           "defaultConfiguration": "development"

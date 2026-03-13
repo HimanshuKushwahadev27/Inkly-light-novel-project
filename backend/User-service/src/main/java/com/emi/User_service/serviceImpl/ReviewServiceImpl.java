@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.emi.User_service.entity.Review;
 import com.emi.User_service.entity.User;
 import com.emi.User_service.exception.ReviewNotFoundException;
+import com.emi.User_service.exception.UserExistsException;
 import com.emi.User_service.mapper.ReviewMapper;
 import com.emi.User_service.repository.ReviewRepo;
 import com.emi.User_service.repository.UserRepo;
@@ -33,7 +34,11 @@ public class ReviewServiceImpl implements ReviewService {
 			throw new IllegalArgumentException("You can't review again");
 		}
 		
-		User user = userRepo.findByKeycloakId(keycloakId);
+
+		User user = userRepo.findByKeycloakId(keycloakId)
+												.orElseThrow(
+												() -> new  UserExistsException("You are not registered as an user")
+												);;
 		
 		Review review = reviewMapper.toEntity(request, keycloakId, user.getId());
 		reviewRepo.save(review);

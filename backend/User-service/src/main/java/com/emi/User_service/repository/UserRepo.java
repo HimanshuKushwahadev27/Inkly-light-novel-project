@@ -1,5 +1,6 @@
 package com.emi.User_service.repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +11,6 @@ public interface UserRepo extends JpaRepository<User, UUID> {
 
 	boolean existsByKeycloakId(UUID keycloakId);
 
-	User findByKeycloakId(UUID keycloakId);
+	Optional<User> findByKeycloakId(UUID keycloakId);
 
 }

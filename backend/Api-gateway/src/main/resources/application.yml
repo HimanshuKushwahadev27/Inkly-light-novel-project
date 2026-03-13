@@ -14,7 +14,7 @@ spring:
             - id: catalog-service
               uri: http://catalog-service:8080
               predicates:
-                - Path=/api/books/**
+                - Path=/api/book/**
 
             - id: authoring-service
               uri: http://authoring-service:8080

@@ -1,0 +1,43 @@
+<div class="container py-4">
+
+  @if (newestBooks$ | async; as newest) {
+    <app-book-section
+      icon="new_releases"
+      title="New Releases"
+      [books]="newest.content">
+    </app-book-section>
+  }
+
+  @if (romanceBooks$ | async; as romance) {
+    <app-book-section
+      icon="favorite"
+      title="Romance"
+      [books]="romance.content">
+    </app-book-section>
+  }
+
+  @if (thrillerBooks$ | async; as thriller) {
+    <app-book-section
+      icon="psychology"
+      title="Thriller"
+      [books]="thriller.content">
+    </app-book-section>
+  }
+
+  @if (ongoingBooks$ | async; as ongoing) {
+    <app-book-section
+      icon="menu_book"
+      title="Ongoing Series"
+      [books]="ongoing.content">
+    </app-book-section>
+  }
+
+  @if (completedBooks$ | async; as completed) {
+    <app-book-section
+      icon="check_circle"
+      title="Completed Books"
+      [books]="completed.content">
+    </app-book-section>
+  }
+
+</div>
