@@ -30,6 +30,11 @@
       "default": null
     },
     { "name": "freePreview", "type": ["null", "boolean"], "default": null },
-    { "name": "updatedAt", "type": "long" }
-  ]
+  {
+  "name": "updatedAt",
+  "type": {
+    "type": "long",
+    "logicalType": "timestamp-millis"
+  }
+}  ]
 }

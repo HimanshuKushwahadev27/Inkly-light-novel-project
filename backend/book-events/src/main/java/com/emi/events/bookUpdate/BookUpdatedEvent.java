@@ -17,10 +17,13 @@ public class BookUpdatedEvent extends org.apache.avro.specific.SpecificRecordBas
   private static final long serialVersionUID = -2690919476950759687L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"BookUpdatedEvent\",\"namespace\":\"com.emi.events.bookUpdate\",\"fields\":[{\"name\":\"bookId\",\"type\":\"string\"},{\"name\":\"title\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"description\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"price\",\"type\":[\"null\",\"double\"],\"default\":null},{\"name\":\"lifeCycleStatus\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"BookLifeCycleStatus\",\"symbols\":[\"DRAFT\",\"ONGOING\",\"COMPLETED\"]}],\"default\":null},{\"name\":\"visibilityStatus\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"BookVisibilityStatus\",\"symbols\":[\"PRIVATE\",\"PUBLIC\",\"DELETE\"]}],\"default\":null},{\"name\":\"freePreview\",\"type\":[\"null\",\"boolean\"],\"default\":null},{\"name\":\"updatedAt\",\"type\":\"long\"}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"BookUpdatedEvent\",\"namespace\":\"com.emi.events.bookUpdate\",\"fields\":[{\"name\":\"bookId\",\"type\":\"string\"},{\"name\":\"title\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"description\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"price\",\"type\":[\"null\",\"double\"],\"default\":null},{\"name\":\"lifeCycleStatus\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"BookLifeCycleStatus\",\"symbols\":[\"DRAFT\",\"ONGOING\",\"COMPLETED\"]}],\"default\":null},{\"name\":\"visibilityStatus\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"BookVisibilityStatus\",\"symbols\":[\"PRIVATE\",\"PUBLIC\",\"DELETE\"]}],\"default\":null},{\"name\":\"freePreview\",\"type\":[\"null\",\"boolean\"],\"default\":null},{\"name\":\"updatedAt\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-millis\"}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
+  static {
+    MODEL$.addLogicalTypeConversion(new org.apache.avro.data.TimeConversions.TimestampMillisConversion());
+  }
 
   private static final BinaryMessageEncoder<BookUpdatedEvent> ENCODER =
       new BinaryMessageEncoder<>(MODEL$, SCHEMA$);
@@ -80,7 +83,7 @@ public class BookUpdatedEvent extends org.apache.avro.specific.SpecificRecordBas
   private com.emi.events.bookUpdate.BookLifeCycleStatus lifeCycleStatus;
   private com.emi.events.bookUpdate.BookVisibilityStatus visibilityStatus;
   private java.lang.Boolean freePreview;
-  private long updatedAt;
+  private java.time.Instant updatedAt;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -100,7 +103,7 @@ public class BookUpdatedEvent extends org.apache.avro.specific.SpecificRecordBas
    * @param freePreview The new value for freePreview
    * @param updatedAt The new value for updatedAt
    */
-  public BookUpdatedEvent(java.lang.CharSequence bookId, java.lang.CharSequence title, java.lang.CharSequence description, java.lang.Double price, com.emi.events.bookUpdate.BookLifeCycleStatus lifeCycleStatus, com.emi.events.bookUpdate.BookVisibilityStatus visibilityStatus, java.lang.Boolean freePreview, java.lang.Long updatedAt) {
+  public BookUpdatedEvent(java.lang.CharSequence bookId, java.lang.CharSequence title, java.lang.CharSequence description, java.lang.Double price, com.emi.events.bookUpdate.BookLifeCycleStatus lifeCycleStatus, com.emi.events.bookUpdate.BookVisibilityStatus visibilityStatus, java.lang.Boolean freePreview, java.time.Instant updatedAt) {
     this.bookId = bookId;
     this.title = title;
     this.description = description;
@@ -108,7 +111,7 @@ public class BookUpdatedEvent extends org.apache.avro.specific.SpecificRecordBas
     this.lifeCycleStatus = lifeCycleStatus;
     this.visibilityStatus = visibilityStatus;
     this.freePreview = freePreview;
-    this.updatedAt = updatedAt;
+    this.updatedAt = updatedAt.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
   }
 
   @Override
@@ -133,6 +136,24 @@ public class BookUpdatedEvent extends org.apache.avro.specific.SpecificRecordBas
     }
   }
 
+  private static final org.apache.avro.Conversion<?>[] conversions =
+      new org.apache.avro.Conversion<?>[] {
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      new org.apache.avro.data.TimeConversions.TimestampMillisConversion(),
+      null
+  };
+
+  @Override
+  public org.apache.avro.Conversion<?> getConversion(int field) {
+    return conversions[field];
+  }
+
   // Used by DatumReader.  Applications should not call.
   @Override
   @SuppressWarnings(value="unchecked")
@@ -145,7 +166,7 @@ public class BookUpdatedEvent extends org.apache.avro.specific.SpecificRecordBas
     case 4: lifeCycleStatus = (com.emi.events.bookUpdate.BookLifeCycleStatus)value$; break;
     case 5: visibilityStatus = (com.emi.events.bookUpdate.BookVisibilityStatus)value$; break;
     case 6: freePreview = (java.lang.Boolean)value$; break;
-    case 7: updatedAt = (java.lang.Long)value$; break;
+    case 7: updatedAt = (java.time.Instant)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -273,7 +294,7 @@ public class BookUpdatedEvent extends org.apache.avro.specific.SpecificRecordBas
    * Gets the value of the 'updatedAt' field.
    * @return The value of the 'updatedAt' field.
    */
-  public long getUpdatedAt() {
+  public java.time.Instant getUpdatedAt() {
     return updatedAt;
   }
 
@@ -282,8 +303,8 @@ public class BookUpdatedEvent extends org.apache.avro.specific.SpecificRecordBas
    * Sets the value of the 'updatedAt' field.
    * @param value the value to set.
    */
-  public void setUpdatedAt(long value) {
-    this.updatedAt = value;
+  public void setUpdatedAt(java.time.Instant value) {
+    this.updatedAt = value.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
   }
 
   /**
@@ -334,7 +355,7 @@ public class BookUpdatedEvent extends org.apache.avro.specific.SpecificRecordBas
     private com.emi.events.bookUpdate.BookLifeCycleStatus lifeCycleStatus;
     private com.emi.events.bookUpdate.BookVisibilityStatus visibilityStatus;
     private java.lang.Boolean freePreview;
-    private long updatedAt;
+    private java.time.Instant updatedAt;
 
     /** Creates a new Builder */
     private Builder() {
@@ -705,7 +726,7 @@ public class BookUpdatedEvent extends org.apache.avro.specific.SpecificRecordBas
       * Gets the value of the 'updatedAt' field.
       * @return The value.
       */
-    public long getUpdatedAt() {
+    public java.time.Instant getUpdatedAt() {
       return updatedAt;
     }
 
@@ -715,9 +736,9 @@ public class BookUpdatedEvent extends org.apache.avro.specific.SpecificRecordBas
       * @param value The value of 'updatedAt'.
       * @return This builder.
       */
-    public com.emi.events.bookUpdate.BookUpdatedEvent.Builder setUpdatedAt(long value) {
+    public com.emi.events.bookUpdate.BookUpdatedEvent.Builder setUpdatedAt(java.time.Instant value) {
       validate(fields()[7], value);
-      this.updatedAt = value;
+      this.updatedAt = value.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
       fieldSetFlags()[7] = true;
       return this;
     }
@@ -752,7 +773,7 @@ public class BookUpdatedEvent extends org.apache.avro.specific.SpecificRecordBas
         record.lifeCycleStatus = fieldSetFlags()[4] ? this.lifeCycleStatus : (com.emi.events.bookUpdate.BookLifeCycleStatus) defaultValue(fields()[4]);
         record.visibilityStatus = fieldSetFlags()[5] ? this.visibilityStatus : (com.emi.events.bookUpdate.BookVisibilityStatus) defaultValue(fields()[5]);
         record.freePreview = fieldSetFlags()[6] ? this.freePreview : (java.lang.Boolean) defaultValue(fields()[6]);
-        record.updatedAt = fieldSetFlags()[7] ? this.updatedAt : (java.lang.Long) defaultValue(fields()[7]);
+        record.updatedAt = fieldSetFlags()[7] ? this.updatedAt : (java.time.Instant) defaultValue(fields()[7]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
@@ -780,187 +801,6 @@ public class BookUpdatedEvent extends org.apache.avro.specific.SpecificRecordBas
     READER$.read(this, SpecificData.getDecoder(in));
   }
 
-  @Override protected boolean hasCustomCoders() { return true; }
-
-  @Override public void customEncode(org.apache.avro.io.Encoder out)
-    throws java.io.IOException
-  {
-    out.writeString(this.bookId);
-
-    if (this.title == null) {
-      out.writeIndex(0);
-      out.writeNull();
-    } else {
-      out.writeIndex(1);
-      out.writeString(this.title);
-    }
-
-    if (this.description == null) {
-      out.writeIndex(0);
-      out.writeNull();
-    } else {
-      out.writeIndex(1);
-      out.writeString(this.description);
-    }
-
-    if (this.price == null) {
-      out.writeIndex(0);
-      out.writeNull();
-    } else {
-      out.writeIndex(1);
-      out.writeDouble(this.price);
-    }
-
-    if (this.lifeCycleStatus == null) {
-      out.writeIndex(0);
-      out.writeNull();
-    } else {
-      out.writeIndex(1);
-      out.writeEnum(this.lifeCycleStatus.ordinal());
-    }
-
-    if (this.visibilityStatus == null) {
-      out.writeIndex(0);
-      out.writeNull();
-    } else {
-      out.writeIndex(1);
-      out.writeEnum(this.visibilityStatus.ordinal());
-    }
-
-    if (this.freePreview == null) {
-      out.writeIndex(0);
-      out.writeNull();
-    } else {
-      out.writeIndex(1);
-      out.writeBoolean(this.freePreview);
-    }
-
-    out.writeLong(this.updatedAt);
-
-  }
-
-  @Override public void customDecode(org.apache.avro.io.ResolvingDecoder in)
-    throws java.io.IOException
-  {
-    org.apache.avro.Schema.Field[] fieldOrder = in.readFieldOrderIfDiff();
-    if (fieldOrder == null) {
-      this.bookId = in.readString(this.bookId instanceof Utf8 ? (Utf8)this.bookId : null);
-
-      if (in.readIndex() != 1) {
-        in.readNull();
-        this.title = null;
-      } else {
-        this.title = in.readString(this.title instanceof Utf8 ? (Utf8)this.title : null);
-      }
-
-      if (in.readIndex() != 1) {
-        in.readNull();
-        this.description = null;
-      } else {
-        this.description = in.readString(this.description instanceof Utf8 ? (Utf8)this.description : null);
-      }
-
-      if (in.readIndex() != 1) {
-        in.readNull();
-        this.price = null;
-      } else {
-        this.price = in.readDouble();
-      }
-
-      if (in.readIndex() != 1) {
-        in.readNull();
-        this.lifeCycleStatus = null;
-      } else {
-        this.lifeCycleStatus = com.emi.events.bookUpdate.BookLifeCycleStatus.values()[in.readEnum()];
-      }
-
-      if (in.readIndex() != 1) {
-        in.readNull();
-        this.visibilityStatus = null;
-      } else {
-        this.visibilityStatus = com.emi.events.bookUpdate.BookVisibilityStatus.values()[in.readEnum()];
-      }
-
-      if (in.readIndex() != 1) {
-        in.readNull();
-        this.freePreview = null;
-      } else {
-        this.freePreview = in.readBoolean();
-      }
-
-      this.updatedAt = in.readLong();
-
-    } else {
-      for (int i = 0; i < 8; i++) {
-        switch (fieldOrder[i].pos()) {
-        case 0:
-          this.bookId = in.readString(this.bookId instanceof Utf8 ? (Utf8)this.bookId : null);
-          break;
-
-        case 1:
-          if (in.readIndex() != 1) {
-            in.readNull();
-            this.title = null;
-          } else {
-            this.title = in.readString(this.title instanceof Utf8 ? (Utf8)this.title : null);
-          }
-          break;
-
-        case 2:
-          if (in.readIndex() != 1) {
-            in.readNull();
-            this.description = null;
-          } else {
-            this.description = in.readString(this.description instanceof Utf8 ? (Utf8)this.description : null);
-          }
-          break;
-
-        case 3:
-          if (in.readIndex() != 1) {
-            in.readNull();
-            this.price = null;
-          } else {
-            this.price = in.readDouble();
-          }
-          break;
-
-        case 4:
-          if (in.readIndex() != 1) {
-            in.readNull();
-            this.lifeCycleStatus = null;
-          } else {
-            this.lifeCycleStatus = com.emi.events.bookUpdate.BookLifeCycleStatus.values()[in.readEnum()];
-          }
-          break;
-
-        case 5:
-          if (in.readIndex() != 1) {
-            in.readNull();
-            this.visibilityStatus = null;
-          } else {
-            this.visibilityStatus = com.emi.events.bookUpdate.BookVisibilityStatus.values()[in.readEnum()];
-          }
-          break;
-
-        case 6:
-          if (in.readIndex() != 1) {
-            in.readNull();
-            this.freePreview = null;
-          } else {
-            this.freePreview = in.readBoolean();
-          }
-          break;
-
-        case 7:
-          this.updatedAt = in.readLong();
-          break;
-
-        default:
-          throw new java.io.IOException("Corrupt ResolvingDecoder.");
-        }
-      }
-    }
-  }
 }
 
 

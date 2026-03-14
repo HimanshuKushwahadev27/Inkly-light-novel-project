@@ -17,10 +17,13 @@ public class BookPublishedEvent extends org.apache.avro.specific.SpecificRecordB
   private static final long serialVersionUID = -1678021546606132609L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"BookPublishedEvent\",\"namespace\":\"com.emi.events.bookPublished\",\"fields\":[{\"name\":\"bookId\",\"type\":\"string\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"description\",\"type\":\"string\"},{\"name\":\"price\",\"type\":\"double\"},{\"name\":\"authorNames\",\"type\":{\"type\":\"array\",\"items\":\"string\"}},{\"name\":\"genres\",\"type\":{\"type\":\"array\",\"items\":\"string\"}},{\"name\":\"freePreviewAvailable\",\"type\":\"boolean\"},{\"name\":\"lifeCycleStatus\",\"type\":{\"type\":\"enum\",\"name\":\"BookLifeCycleStatus\",\"symbols\":[\"DRAFT\",\"ONGOING\",\"COMPLETED\"]}},{\"name\":\"visibilityStatus\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"BookVisibilityStatus\",\"symbols\":[\"PRIVATE\",\"PUBLIC\",\"DELETE\"]}],\"default\":null},{\"name\":\"publishedAt\",\"type\":\"long\"}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"BookPublishedEvent\",\"namespace\":\"com.emi.events.bookPublished\",\"fields\":[{\"name\":\"bookId\",\"type\":\"string\"},{\"name\":\"title\",\"type\":\"string\"},{\"name\":\"description\",\"type\":\"string\"},{\"name\":\"price\",\"type\":\"double\"},{\"name\":\"authorNames\",\"type\":{\"type\":\"array\",\"items\":\"string\"}},{\"name\":\"genres\",\"type\":{\"type\":\"array\",\"items\":\"string\"}},{\"name\":\"freePreviewAvailable\",\"type\":\"boolean\"},{\"name\":\"lifeCycleStatus\",\"type\":{\"type\":\"enum\",\"name\":\"BookLifeCycleStatus\",\"symbols\":[\"DRAFT\",\"ONGOING\",\"COMPLETED\"]}},{\"name\":\"visibilityStatus\",\"type\":[\"null\",{\"type\":\"enum\",\"name\":\"BookVisibilityStatus\",\"symbols\":[\"PRIVATE\",\"PUBLIC\",\"DELETE\"]}],\"default\":null},{\"name\":\"publishedAt\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-millis\"}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
+  static {
+    MODEL$.addLogicalTypeConversion(new org.apache.avro.data.TimeConversions.TimestampMillisConversion());
+  }
 
   private static final BinaryMessageEncoder<BookPublishedEvent> ENCODER =
       new BinaryMessageEncoder<>(MODEL$, SCHEMA$);
@@ -82,7 +85,7 @@ public class BookPublishedEvent extends org.apache.avro.specific.SpecificRecordB
   private boolean freePreviewAvailable;
   private com.emi.events.bookPublished.BookLifeCycleStatus lifeCycleStatus;
   private com.emi.events.bookPublished.BookVisibilityStatus visibilityStatus;
-  private long publishedAt;
+  private java.time.Instant publishedAt;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -104,7 +107,7 @@ public class BookPublishedEvent extends org.apache.avro.specific.SpecificRecordB
    * @param visibilityStatus The new value for visibilityStatus
    * @param publishedAt The new value for publishedAt
    */
-  public BookPublishedEvent(java.lang.CharSequence bookId, java.lang.CharSequence title, java.lang.CharSequence description, java.lang.Double price, java.util.List<java.lang.CharSequence> authorNames, java.util.List<java.lang.CharSequence> genres, java.lang.Boolean freePreviewAvailable, com.emi.events.bookPublished.BookLifeCycleStatus lifeCycleStatus, com.emi.events.bookPublished.BookVisibilityStatus visibilityStatus, java.lang.Long publishedAt) {
+  public BookPublishedEvent(java.lang.CharSequence bookId, java.lang.CharSequence title, java.lang.CharSequence description, java.lang.Double price, java.util.List<java.lang.CharSequence> authorNames, java.util.List<java.lang.CharSequence> genres, java.lang.Boolean freePreviewAvailable, com.emi.events.bookPublished.BookLifeCycleStatus lifeCycleStatus, com.emi.events.bookPublished.BookVisibilityStatus visibilityStatus, java.time.Instant publishedAt) {
     this.bookId = bookId;
     this.title = title;
     this.description = description;
@@ -114,7 +117,7 @@ public class BookPublishedEvent extends org.apache.avro.specific.SpecificRecordB
     this.freePreviewAvailable = freePreviewAvailable;
     this.lifeCycleStatus = lifeCycleStatus;
     this.visibilityStatus = visibilityStatus;
-    this.publishedAt = publishedAt;
+    this.publishedAt = publishedAt.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
   }
 
   @Override
@@ -141,6 +144,26 @@ public class BookPublishedEvent extends org.apache.avro.specific.SpecificRecordB
     }
   }
 
+  private static final org.apache.avro.Conversion<?>[] conversions =
+      new org.apache.avro.Conversion<?>[] {
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      new org.apache.avro.data.TimeConversions.TimestampMillisConversion(),
+      null
+  };
+
+  @Override
+  public org.apache.avro.Conversion<?> getConversion(int field) {
+    return conversions[field];
+  }
+
   // Used by DatumReader.  Applications should not call.
   @Override
   @SuppressWarnings(value="unchecked")
@@ -155,7 +178,7 @@ public class BookPublishedEvent extends org.apache.avro.specific.SpecificRecordB
     case 6: freePreviewAvailable = (java.lang.Boolean)value$; break;
     case 7: lifeCycleStatus = (com.emi.events.bookPublished.BookLifeCycleStatus)value$; break;
     case 8: visibilityStatus = (com.emi.events.bookPublished.BookVisibilityStatus)value$; break;
-    case 9: publishedAt = (java.lang.Long)value$; break;
+    case 9: publishedAt = (java.time.Instant)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -317,7 +340,7 @@ public class BookPublishedEvent extends org.apache.avro.specific.SpecificRecordB
    * Gets the value of the 'publishedAt' field.
    * @return The value of the 'publishedAt' field.
    */
-  public long getPublishedAt() {
+  public java.time.Instant getPublishedAt() {
     return publishedAt;
   }
 
@@ -326,8 +349,8 @@ public class BookPublishedEvent extends org.apache.avro.specific.SpecificRecordB
    * Sets the value of the 'publishedAt' field.
    * @param value the value to set.
    */
-  public void setPublishedAt(long value) {
-    this.publishedAt = value;
+  public void setPublishedAt(java.time.Instant value) {
+    this.publishedAt = value.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
   }
 
   /**
@@ -380,7 +403,7 @@ public class BookPublishedEvent extends org.apache.avro.specific.SpecificRecordB
     private boolean freePreviewAvailable;
     private com.emi.events.bookPublished.BookLifeCycleStatus lifeCycleStatus;
     private com.emi.events.bookPublished.BookVisibilityStatus visibilityStatus;
-    private long publishedAt;
+    private java.time.Instant publishedAt;
 
     /** Creates a new Builder */
     private Builder() {
@@ -845,7 +868,7 @@ public class BookPublishedEvent extends org.apache.avro.specific.SpecificRecordB
       * Gets the value of the 'publishedAt' field.
       * @return The value.
       */
-    public long getPublishedAt() {
+    public java.time.Instant getPublishedAt() {
       return publishedAt;
     }
 
@@ -855,9 +878,9 @@ public class BookPublishedEvent extends org.apache.avro.specific.SpecificRecordB
       * @param value The value of 'publishedAt'.
       * @return This builder.
       */
-    public com.emi.events.bookPublished.BookPublishedEvent.Builder setPublishedAt(long value) {
+    public com.emi.events.bookPublished.BookPublishedEvent.Builder setPublishedAt(java.time.Instant value) {
       validate(fields()[9], value);
-      this.publishedAt = value;
+      this.publishedAt = value.truncatedTo(java.time.temporal.ChronoUnit.MILLIS);
       fieldSetFlags()[9] = true;
       return this;
     }
@@ -894,7 +917,7 @@ public class BookPublishedEvent extends org.apache.avro.specific.SpecificRecordB
         record.freePreviewAvailable = fieldSetFlags()[6] ? this.freePreviewAvailable : (java.lang.Boolean) defaultValue(fields()[6]);
         record.lifeCycleStatus = fieldSetFlags()[7] ? this.lifeCycleStatus : (com.emi.events.bookPublished.BookLifeCycleStatus) defaultValue(fields()[7]);
         record.visibilityStatus = fieldSetFlags()[8] ? this.visibilityStatus : (com.emi.events.bookPublished.BookVisibilityStatus) defaultValue(fields()[8]);
-        record.publishedAt = fieldSetFlags()[9] ? this.publishedAt : (java.lang.Long) defaultValue(fields()[9]);
+        record.publishedAt = fieldSetFlags()[9] ? this.publishedAt : (java.time.Instant) defaultValue(fields()[9]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
@@ -922,197 +945,6 @@ public class BookPublishedEvent extends org.apache.avro.specific.SpecificRecordB
     READER$.read(this, SpecificData.getDecoder(in));
   }
 
-  @Override protected boolean hasCustomCoders() { return true; }
-
-  @Override public void customEncode(org.apache.avro.io.Encoder out)
-    throws java.io.IOException
-  {
-    out.writeString(this.bookId);
-
-    out.writeString(this.title);
-
-    out.writeString(this.description);
-
-    out.writeDouble(this.price);
-
-    long size0 = this.authorNames.size();
-    out.writeArrayStart();
-    out.setItemCount(size0);
-    long actualSize0 = 0;
-    for (java.lang.CharSequence e0: this.authorNames) {
-      actualSize0++;
-      out.startItem();
-      out.writeString(e0);
-    }
-    out.writeArrayEnd();
-    if (actualSize0 != size0)
-      throw new java.util.ConcurrentModificationException("Array-size written was " + size0 + ", but element count was " + actualSize0 + ".");
-
-    long size1 = this.genres.size();
-    out.writeArrayStart();
-    out.setItemCount(size1);
-    long actualSize1 = 0;
-    for (java.lang.CharSequence e1: this.genres) {
-      actualSize1++;
-      out.startItem();
-      out.writeString(e1);
-    }
-    out.writeArrayEnd();
-    if (actualSize1 != size1)
-      throw new java.util.ConcurrentModificationException("Array-size written was " + size1 + ", but element count was " + actualSize1 + ".");
-
-    out.writeBoolean(this.freePreviewAvailable);
-
-    out.writeEnum(this.lifeCycleStatus.ordinal());
-
-    if (this.visibilityStatus == null) {
-      out.writeIndex(0);
-      out.writeNull();
-    } else {
-      out.writeIndex(1);
-      out.writeEnum(this.visibilityStatus.ordinal());
-    }
-
-    out.writeLong(this.publishedAt);
-
-  }
-
-  @Override public void customDecode(org.apache.avro.io.ResolvingDecoder in)
-    throws java.io.IOException
-  {
-    org.apache.avro.Schema.Field[] fieldOrder = in.readFieldOrderIfDiff();
-    if (fieldOrder == null) {
-      this.bookId = in.readString(this.bookId instanceof Utf8 ? (Utf8)this.bookId : null);
-
-      this.title = in.readString(this.title instanceof Utf8 ? (Utf8)this.title : null);
-
-      this.description = in.readString(this.description instanceof Utf8 ? (Utf8)this.description : null);
-
-      this.price = in.readDouble();
-
-      long size0 = in.readArrayStart();
-      java.util.List<java.lang.CharSequence> a0 = this.authorNames;
-      if (a0 == null) {
-        a0 = new SpecificData.Array<java.lang.CharSequence>((int)size0, SCHEMA$.getField("authorNames").schema());
-        this.authorNames = a0;
-      } else a0.clear();
-      SpecificData.Array<java.lang.CharSequence> ga0 = (a0 instanceof SpecificData.Array ? (SpecificData.Array<java.lang.CharSequence>)a0 : null);
-      for ( ; 0 < size0; size0 = in.arrayNext()) {
-        for ( ; size0 != 0; size0--) {
-          java.lang.CharSequence e0 = (ga0 != null ? ga0.peek() : null);
-          e0 = in.readString(e0 instanceof Utf8 ? (Utf8)e0 : null);
-          a0.add(e0);
-        }
-      }
-
-      long size1 = in.readArrayStart();
-      java.util.List<java.lang.CharSequence> a1 = this.genres;
-      if (a1 == null) {
-        a1 = new SpecificData.Array<java.lang.CharSequence>((int)size1, SCHEMA$.getField("genres").schema());
-        this.genres = a1;
-      } else a1.clear();
-      SpecificData.Array<java.lang.CharSequence> ga1 = (a1 instanceof SpecificData.Array ? (SpecificData.Array<java.lang.CharSequence>)a1 : null);
-      for ( ; 0 < size1; size1 = in.arrayNext()) {
-        for ( ; size1 != 0; size1--) {
-          java.lang.CharSequence e1 = (ga1 != null ? ga1.peek() : null);
-          e1 = in.readString(e1 instanceof Utf8 ? (Utf8)e1 : null);
-          a1.add(e1);
-        }
-      }
-
-      this.freePreviewAvailable = in.readBoolean();
-
-      this.lifeCycleStatus = com.emi.events.bookPublished.BookLifeCycleStatus.values()[in.readEnum()];
-
-      if (in.readIndex() != 1) {
-        in.readNull();
-        this.visibilityStatus = null;
-      } else {
-        this.visibilityStatus = com.emi.events.bookPublished.BookVisibilityStatus.values()[in.readEnum()];
-      }
-
-      this.publishedAt = in.readLong();
-
-    } else {
-      for (int i = 0; i < 10; i++) {
-        switch (fieldOrder[i].pos()) {
-        case 0:
-          this.bookId = in.readString(this.bookId instanceof Utf8 ? (Utf8)this.bookId : null);
-          break;
-
-        case 1:
-          this.title = in.readString(this.title instanceof Utf8 ? (Utf8)this.title : null);
-          break;
-
-        case 2:
-          this.description = in.readString(this.description instanceof Utf8 ? (Utf8)this.description : null);
-          break;
-
-        case 3:
-          this.price = in.readDouble();
-          break;
-
-        case 4:
-          long size0 = in.readArrayStart();
-          java.util.List<java.lang.CharSequence> a0 = this.authorNames;
-          if (a0 == null) {
-            a0 = new SpecificData.Array<java.lang.CharSequence>((int)size0, SCHEMA$.getField("authorNames").schema());
-            this.authorNames = a0;
-          } else a0.clear();
-          SpecificData.Array<java.lang.CharSequence> ga0 = (a0 instanceof SpecificData.Array ? (SpecificData.Array<java.lang.CharSequence>)a0 : null);
-          for ( ; 0 < size0; size0 = in.arrayNext()) {
-            for ( ; size0 != 0; size0--) {
-              java.lang.CharSequence e0 = (ga0 != null ? ga0.peek() : null);
-              e0 = in.readString(e0 instanceof Utf8 ? (Utf8)e0 : null);
-              a0.add(e0);
-            }
-          }
-          break;
-
-        case 5:
-          long size1 = in.readArrayStart();
-          java.util.List<java.lang.CharSequence> a1 = this.genres;
-          if (a1 == null) {
-            a1 = new SpecificData.Array<java.lang.CharSequence>((int)size1, SCHEMA$.getField("genres").schema());
-            this.genres = a1;
-          } else a1.clear();
-          SpecificData.Array<java.lang.CharSequence> ga1 = (a1 instanceof SpecificData.Array ? (SpecificData.Array<java.lang.CharSequence>)a1 : null);
-          for ( ; 0 < size1; size1 = in.arrayNext()) {
-            for ( ; size1 != 0; size1--) {
-              java.lang.CharSequence e1 = (ga1 != null ? ga1.peek() : null);
-              e1 = in.readString(e1 instanceof Utf8 ? (Utf8)e1 : null);
-              a1.add(e1);
-            }
-          }
-          break;
-
-        case 6:
-          this.freePreviewAvailable = in.readBoolean();
-          break;
-
-        case 7:
-          this.lifeCycleStatus = com.emi.events.bookPublished.BookLifeCycleStatus.values()[in.readEnum()];
-          break;
-
-        case 8:
-          if (in.readIndex() != 1) {
-            in.readNull();
-            this.visibilityStatus = null;
-          } else {
-            this.visibilityStatus = com.emi.events.bookPublished.BookVisibilityStatus.values()[in.readEnum()];
-          }
-          break;
-
-        case 9:
-          this.publishedAt = in.readLong();
-          break;
-
-        default:
-          throw new java.io.IOException("Corrupt ResolvingDecoder.");
-        }
-      }
-    }
-  }
 }
 
 

@@ -1,37 +1,38 @@
 version: "3.8"
 
 services:
-  opensearch:
-    image: opensearchproject/opensearch:2.11.0
-    container_name: opensearch
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.2.0
+    container_name: elasticsearch
     environment:
       - discovery.type=single-node
-      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=admin
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
     ports:
       - "9200:9200"
     volumes:
-      - opensearch-data:/usr/share/opensearch/data
+      - elasticsearch-data:/usr/share/elasticsearch/data
     networks:
       - Library-net
 
-      
-  opensearch-dashboards:
-      image: opensearchproject/opensearch-dashboards:2.11.0
-      container_name: opensearch-dashboards
-      ports:
-          - "5601:5601"
-      environment:
-          OPENSEARCH_HOSTS: '["https://opensearch:9200"]'
-          OPENSEARCH_USERNAME: admin
-          OPENSEARCH_PASSWORD: admin
-          OPENSEARCH_SSL_VERIFICATIONMODE: none
-      depends_on:
-          - opensearch
-      networks:
-          - Library-net
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:9.2.0
+    container_name: kibana
+    environment:
+      ELASTICSEARCH_HOSTS: '["http://elasticsearch:9200"]'
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - Library-net
+
 
 volumes:
-  opensearch-data:
+  elasticsearch-data:
+
 
 networks:
   Library-net:

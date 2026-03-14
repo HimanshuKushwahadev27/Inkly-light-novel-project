@@ -11,7 +11,7 @@ services:
             SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/paymentservice_db
             SPRING_DATASOURCE_USERNAME: postgres
             SPRING_DATASOURCE_PASSWORD: postgres
-            SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8080/realms/Library-realm
+            SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/Library-realm/protocol/openid-connect/certs
         ports:
             - "9094:8080"
         depends_on:

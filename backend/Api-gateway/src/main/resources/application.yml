@@ -24,7 +24,7 @@ spring:
             - id: author-service
               uri: http://author-service:8080
               predicates:
-                - Path=/api/user/**
+                - Path=/api/authors/**
 
             - id: user-service
               uri: http://user-service:8080

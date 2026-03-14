@@ -1,6 +1,7 @@
 package com.emi.Search_service.document;
 
 
+import java.time.Instant;
 import java.util.List;
 
 
@@ -50,10 +51,10 @@ public class BookDocument {
     private Boolean freePreview;
 
     @Field(type = FieldType.Date)
-    private Long publishedAt;
+    private Instant  publishedAt;
     
     @Field(type = FieldType.Date)
-    private Long updatedAt;
+    private Instant  updatedAt;
     
     @Field(type = FieldType.Keyword)
     private String lifeCycleStatus;

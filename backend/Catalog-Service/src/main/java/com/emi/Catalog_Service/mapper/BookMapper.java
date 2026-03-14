@@ -100,7 +100,7 @@ public class BookMapper {
 		        .setAuthorNames(book.getAuthorSnapshots().stream().map(t -> (CharSequence)t.getName()).toList())
 		        .setGenres(book.getGenreIds().stream().map(t -> (CharSequence)t.getName()).toList())
 		        .setFreePreviewAvailable(book.getFreePreview())
-		        .setPublishedAt(System.currentTimeMillis())
+		        .setPublishedAt(Instant.now())
 		        .build();
 		
 		if(book.getStatusLifecycle()==BookLifeCycleStatus.ONGOING) {
@@ -125,7 +125,7 @@ public class BookMapper {
 		        .setDescription(book.getDescription())
 		        .setPrice(book.getPrice().doubleValue())
 		        .setFreePreview(book.getFreePreview())
-		        .setUpdatedAt(System.currentTimeMillis())
+		        .setUpdatedAt(Instant.now())
 		        .build();
 		
 		if(book.getStatusLifecycle()==BookLifeCycleStatus.ONGOING) {

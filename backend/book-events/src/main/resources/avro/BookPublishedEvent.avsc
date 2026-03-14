@@ -30,6 +30,12 @@
       ],
       "default": null
     },
-    { "name": "publishedAt", "type": "long" }
+  {
+  "name": "publishedAt",
+  "type": {
+    "type": "long",
+    "logicalType": "timestamp-millis"
+  }
+}
   ]
 }
