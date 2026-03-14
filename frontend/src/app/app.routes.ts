@@ -14,5 +14,10 @@ export const routes: Routes = [
  {path: 'create-user',
   loadComponent: () => import('./features/users/pages/create-user/create-user.component')
     .then(m => m.CreateUserComponent)
+ },
+ {
+  path: 'user-profile',
+  loadComponent: () => import('./features/users/profile/profile.component')
+    .then(m => m.ProfileComponent)
  }
 ];

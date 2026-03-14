@@ -1,13 +1,15 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { randomUUID } from 'crypto';
 
 export const idempotencyInterceptor: HttpInterceptorFn = (req, next) => {
 
-  if (req.method === 'POST') {
+  const isPost = req.method === 'POST';
+  const isApiRequest = req.url.includes('/api/');
+
+  if (isPost && isApiRequest) {
 
     const cloned = req.clone({
       setHeaders: {
-        'IDEMPOTENCY_HEADER': randomUUID()
+        'Idempotency-Key': crypto.randomUUID()
       }
     });
 

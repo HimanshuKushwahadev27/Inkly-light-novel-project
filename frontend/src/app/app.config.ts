@@ -5,11 +5,15 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './core/auth/interceptor/auth.interceptor';
-
+import { idempotencyInterceptor } from './core/auth/interceptor/idempotency.interceptor';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(withInterceptors([authInterceptor])),
+    provideToastr({
+        positionClass: 'toast-top-left'
+    }),
+    provideHttpClient(withInterceptors([authInterceptor, idempotencyInterceptor])),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),

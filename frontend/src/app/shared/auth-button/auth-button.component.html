@@ -14,13 +14,27 @@
   My Books
 </button>
 
-<button mat-icon-button [matMenuTriggerFor]="profileMenu">
-  <mat-icon>account_circle</mat-icon>
+<button mat-button class="profile-btn" [matMenuTriggerFor]="profileMenu">
+
+@if (userService.currentUser()) {
+
+  <img
+    class="avatar"
+    [src]="userService.currentUser()?.profileImageurl || 'assets/default-avatar.png'"
+  />
+
+  <span class="username">
+    {{ userService.currentUser()?.displayName }}
+  </span>
+
+}
+
+
 </button>
 
 <mat-menu #profileMenu="matMenu">
 
-<button mat-menu-item>
+<button mat-menu-item  routerLink="/user-profile">
   <mat-icon>person</mat-icon>
   Profile
 </button>
