@@ -28,6 +28,18 @@ public record GatewayResponse(
             description = "Final transaction amount processed",
             example = "499.99"
         )
-        BigDecimal amount
+        BigDecimal amount,
+
+        @Schema(
+            description = "Currency code in ISO format",
+            example = "inr"
+        )
+        String currency,
+
+        @Schema(
+            description = "Client secret used by frontend to complete the payment",
+            example = "pi_3Nk2aL2eZvKYlo2C1abcd123_secret_xyz"
+        )
+        String client_secret
 
 ) {}

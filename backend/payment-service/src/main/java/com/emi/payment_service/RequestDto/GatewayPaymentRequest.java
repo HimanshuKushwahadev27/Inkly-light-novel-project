@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 
@@ -35,6 +36,22 @@ public record GatewayPaymentRequest(
             description = "Unique key to prevent duplicate payment processing",
             example = "idem_abc123xyz"
         )
-        String idempotencyKey
+        String idempotencyKey,
+
+        @Schema(
+                description = "ISO currency code",
+                example = "INR",
+                requiredMode = Schema.RequiredMode.REQUIRED
+        )
+        @NotBlank
+        @Pattern(regexp = "^[A-Z]{3}$")
+        String currency,
+
+        @NotBlank
+        @Schema(
+            description = "Stripe payment method ID generated on frontend",
+            example = "pm_1NqgR7A9abcd123"
+        )
+        String paymentMethodId
 
 ) {}

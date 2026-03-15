@@ -35,6 +35,7 @@ import com.stripe.model.Event;
 import com.stripe.model.PaymentIntent;
 import com.stripe.net.Webhook;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -78,14 +79,14 @@ public class PaymentServiceImpl implements PaymentService {
 		if (!order.userId().equals(keycloakId)) {
 			throw new UnauthorizedException("No authorized");
 		}
-		Payments payment = paymentMapper.toEntity(order, keycloakId);
+		Payments payment = paymentMapper.toEntity(order, keycloakId, request.currency(), request.type());
 		paymentRepo.save(payment);
 		
-		GatewayPaymentRequest gatewayRequest = gatewayMapper.getRequest(payment, idempotencyId);
+		GatewayPaymentRequest gatewayRequest = gatewayMapper.getRequest(payment, idempotencyId, request.currency(), request.paymentMethodId());
 		GatewayResponse gatewayResponse = paymentGateway.charge(gatewayRequest);
 		
 		payment.setGatewayTransactionId(gatewayResponse.transactionId());
-		ResponsePaymentDto response = paymentMapper.toDto(payment);
+		ResponsePaymentDto response = paymentMapper.toDto(payment, gatewayResponse.client_secret());
 		
 		idempMapper.updateIdemp(idempotency, response);
 		idempRepo.save(idempotency);
@@ -102,7 +103,7 @@ public class PaymentServiceImpl implements PaymentService {
 			throw new UnauthorizedException("U r not authorized");
 		}
 
-		return paymentMapper.toDto(payment);
+		return paymentMapper.toDto(payment, "");
 	}
 
 	@Override
@@ -126,8 +127,9 @@ public class PaymentServiceImpl implements PaymentService {
 		case "payment_intent.payment_failed" -> handleFailure(event);
 
 		}
-	}
+	}	
 
+	@Transactional
 	private void handleFailure(Event event) {
 		
 		PaymentIntent intent = (PaymentIntent) event.getDataObjectDeserializer().getObject().orElseThrow();
@@ -136,7 +138,8 @@ public class PaymentServiceImpl implements PaymentService {
 
 		Payments payment = paymentRepo.findByGatewayTransactionId(transactionId);
 
-		if (payment.getStatus() == PaymentStatus.SUCCESS) {
+		if (payment.getStatus() == PaymentStatus.SUCCESS ||
+				payment.getStatus() == PaymentStatus.FAILED) {
 			return;
 		}
 		
@@ -144,9 +147,10 @@ public class PaymentServiceImpl implements PaymentService {
 		payment.setUpdatedAt(Instant.now());
 		paymentRepo.save(payment);
 		
-		eventGeneration.paymentFailed(eventMapper.getSuccess(payment));
+		eventGeneration.paymentFailed(eventMapper.getFailure(payment));
 	}
 
+	@Transactional
 	private void handleSuccess(Event event) {
 		PaymentIntent intent = (PaymentIntent) event.getDataObjectDeserializer().getObject().orElseThrow();
 
@@ -162,7 +166,7 @@ public class PaymentServiceImpl implements PaymentService {
 		payment.setUpdatedAt(Instant.now());
 		paymentRepo.save(payment);
 
-		eventGeneration.paymentFailed(eventMapper.getFailure(payment));
+		eventGeneration.paymentSuccess(eventMapper.getSuccess(payment));;
 
 	}
 

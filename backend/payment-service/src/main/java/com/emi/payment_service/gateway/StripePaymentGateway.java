@@ -2,6 +2,7 @@ package com.emi.payment_service.gateway;
 
 import java.math.BigDecimal;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -28,11 +29,15 @@ public class StripePaymentGateway implements PaymentGateway {
 		
 		body.add("amount", request.amount().multiply(BigDecimal.valueOf(100)).toString());
 		body.add("payment_method_types[]", "card");
-		
+		body.add("currency", request.currency());
+		body.add("payment_method", request.paymentMethodId());
+    body.add("confirm", "true");
+
 		StripeResponse response = stripeWebClient.post()
 				.uri("/v1/payment_intents")
-			    .header("Idempotency-Key", request.idempotencyKey().toString())		
-			    .bodyValue(body)
+			  .header("Idempotency-Key", request.idempotencyKey().toString())	
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED)	
+			  .bodyValue(body)
 				.retrieve()
 				.bodyToMono(StripeResponse.class)
 				.block()
@@ -41,7 +46,9 @@ public class StripePaymentGateway implements PaymentGateway {
 		return new GatewayResponse(
 				response.id(),
 		        mapStatus(response.status()),
-		        convertAmount(response.amount())
+		        convertAmount(response.amount()),
+						response.currency(),
+						response.client_secret()
 		);
 	}
 
@@ -55,24 +62,20 @@ public class StripePaymentGateway implements PaymentGateway {
 	}
 
 	private GatewayPaymentStatus mapStatus(String status) {
-	    if (status == null) {
-	        return GatewayPaymentStatus.FAILED;
-	    }
 
-	    return switch (status.toLowerCase()) {
+    return switch (status) {
 
-	        case "succeeded" -> GatewayPaymentStatus.SUCCESS;
+        case "succeeded" -> GatewayPaymentStatus.SUCCESS;
 
-	        case "processing",
-	             "requires_payment_method",
-	             "requires_confirmation" -> GatewayPaymentStatus.PENDING;
+        case "requires_payment_method",
+             "requires_confirmation",
+             "requires_action",
+             "processing" -> GatewayPaymentStatus.PENDING;
 
-	        case "failed",
-	             "canceled" -> GatewayPaymentStatus.FAILED;
+        case "canceled" -> GatewayPaymentStatus.FAILED;
 
-	        default -> GatewayPaymentStatus.FAILED;
-	    };
-	}
-
+        default -> GatewayPaymentStatus.FAILED;
+    };
+}
 	
 }

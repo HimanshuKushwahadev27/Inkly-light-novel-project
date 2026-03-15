@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 import com.emi.events.payment.PaymentStatus;
+import com.emi.payment_service.enums.PaymentMethodType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,5 +50,11 @@ public class Payments {
 	@Column(name = "updated_at", nullable = false, unique = false)
 	private Instant updatedAt;
 	
-	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "payment_method_type")
+	private PaymentMethodType paymentMethodType;
+
+
+	@Column(name = "currency", nullable = false)
+	private String currency;
 }

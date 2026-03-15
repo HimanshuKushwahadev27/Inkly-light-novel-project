@@ -10,11 +10,13 @@ import com.emi.payment_service.entity.Payments;
 @Component
 public class GatewayMapper {
 
-	public  GatewayPaymentRequest getRequest(Payments payment, UUID idempotencyId) {
+	public  GatewayPaymentRequest getRequest(Payments payment, UUID idempotencyId, String currency, String idPayment) {
 		return new GatewayPaymentRequest(
 				payment.getAmount(),
 				payment.getOrderId().toString(),
-				idempotencyId.toString()
+				idempotencyId.toString(),
+				currency,
+				idPayment
 				);
 	}
 
