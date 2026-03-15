@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+
 }
 
 .avatar {
@@ -9,8 +10,60 @@
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
+  
 }
 
 .username {
   font-weight: 500;
+}
+
+.signin-btn{
+  background-color: #FF5C77;
+  color:white;
+}
+
+.signin-btn:hover{
+  background-color: #ff3d5f;
+}
+
+
+.nav-btn:hover {
+  background-color: rgba(255, 92, 119, 0.12);
+    color: #DE3163;
+
+}
+.nav-btn{
+    color: #8E0E4A;
+}
+
+.mat-mdc-menu-item:hover {
+  background-color: rgba(255, 92, 119, 0.12);
+  color: #DE3163;
+}
+
+.mat-mdc-menu-item:hover mat-icon {
+  color: #FF5C77;
+}
+
+.mat-mdc-menu-item{
+    color: #8E0E4A;
+}
+
+.mat-mdc-menu-item mat-icon{
+    color: #8E0E4A;
+}
+
+
+
+
+
+.profile-btn {
+  font-weight: 1200;
+  color: #8E0E4A;
+}
+
+.profile-btn:hover {
+    color: #DE3163;
+
+  background-color: rgba(255, 92, 119, 0.12);
 }

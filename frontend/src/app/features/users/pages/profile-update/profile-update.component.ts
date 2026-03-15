@@ -6,40 +6,45 @@ import {  MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../../service/user.service';
+
 
 @Component({
-  selector: 'app-create-user',
+  selector: 'app-profile-update',
   standalone: true,
-  imports: [
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule
+  imports: 
+  [        
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
-  templateUrl: './create-user.component.html',
-  styleUrl: './create-user.component.scss',
+  templateUrl: './profile-update.component.html',
+  styleUrl: './profile-update.component.scss',
 })
-export class CreateUserComponent {
+export class ProfileUpdateComponent {
 
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
   private router = inject(Router);
   private toastr = inject(ToastrService)
-  
-  userForm = this.fb.group({
+  private userService = inject(UserService);
+
+  updateForm = this.fb.group({
+    id : this.userService.currentUser()?.id,
     displayName: ['', [Validators.required, Validators.minLength(3)]],
-    profileImgUrl: [''],
+    imageUrl: [''],
     bio: ['']
-  });
+  })
 
-  createUser(){
-    if(this.userForm.invalid)return;
+  updateUser(){
+    if(this.updateForm.invalid)return;
 
-    this.http.post('/api/user/create', this.userForm.value)
+    this.http.post('/api/user/update', this.updateForm.value)
       .subscribe({
         next: () =>{
        this.toastr.success(
-        'User profile completed successfully',
+        'User profile updated successfully',
         'Success'
       );
 
@@ -47,11 +52,10 @@ export class CreateUserComponent {
         },
          error: (err) => {
       this.toastr.error(
-        'Failed to create user profile',
+        'Failed to update user profile',
         'Error'
       );
     }
-      })
+      })   
   }
-
 }

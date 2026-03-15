@@ -22,6 +22,8 @@
 .logo{
   font-size:20px;
   font-weight:600;
+  color: #8E0E4A;
+  cursor: pointer;
 }
 
 .nav-center{
@@ -32,7 +34,8 @@
 
 .search-box{
   width:260px;
-  margin-top:6px;  
+  margin-top:6px;
+  margin-bottom: 6px;
 }
 
 .categories-btn{
@@ -41,3 +44,29 @@
   gap:6px;
 }
 
+mat-toolbar {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.create-genre-btn.mat-mdc-button:hover {
+  background-color: rgba(255, 92, 119, 0.12);
+    color: #DE3163;
+
+}
+.create-genre-btn.mat-mdc-button{
+    color: #8E0E4A;
+}
+.categories-btn.mat-mdc-button:hover {
+  background-color: rgba(255, 92, 119, 0.12);
+    color: #DE3163;
+
+}
+.categories-btn.mat-mdc-button{
+    color: #8E0E4A;
+
+}
+
+::ng-deep .search-box .mat-mdc-text-field-wrapper{
+  background-color:white;
+}

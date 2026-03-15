@@ -1,0 +1,31 @@
+<div class = "create-user">
+  
+  <div class="create-card">
+
+    <h2>Update Your Profile</h2>
+
+    <form [formGroup]="updateForm" (ngSubmit) = "updateUser()">
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Display Name</mat-label>
+        <input matInput formControlName="displayName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Profile Image URL</mat-label>
+        <input matInput formControlName="imageUrl">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Bio</mat-label>
+        <textarea matInput rows="3" formControlName="bio"></textarea>
+      </mat-form-field>
+
+
+      <button mat-raised-button color="primary" type="submit">
+        Update Profile
+      </button>
+
+    </form>
+  </div>
+</div>
