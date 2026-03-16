@@ -101,16 +101,12 @@ public class AuthorServiceImpl implements AuthorService {
 	}
 
 	@Override
-	public ResponseAuthorDto get(UUID authorId, UUID keycloakId) {
-		
-		if(!authorRepo.existsByKeycloakId(keycloakId)) {
-			throw new RegisteredAuthorException("You are not registered as an author please register first");
-		}
+	public ResponseAuthorDto get( UUID keycloakId) {
 		
 		Author author = authorRepo
-				.findById(authorId)
+				.findByKeycloakId(keycloakId)
 				.orElseThrow(
-						() -> new RegisteredAuthorException("Authot not found for the id "+ authorId)
+						() -> new RegisteredAuthorException("Authot not found for the userId "+ keycloakId)
 						);
 		
 		if(!author.getKeycloakId().equals(keycloakId)) {

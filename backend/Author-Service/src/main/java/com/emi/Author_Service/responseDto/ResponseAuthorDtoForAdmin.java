@@ -26,12 +26,6 @@ public record ResponseAuthorDtoForAdmin(
 	    String bio,
 
 	    @Schema(
-	        description = "URL of the author's profile image",
-	        example = "https://cdn.library.com/authors/profile123.png"
-	    )
-	    String profileImgUrl,
-
-	    @Schema(
 	        description = "Indicates whether the author is verified by the platform",
 	        example = "true"
 	    )

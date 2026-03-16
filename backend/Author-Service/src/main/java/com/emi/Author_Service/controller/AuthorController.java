@@ -53,11 +53,11 @@ public class AuthorController {
 	}
 	
 	
-	@GetMapping("/get/{authorId}")
-	public ResponseEntity<ResponseAuthorDto> get(@PathVariable UUID authorId,
+	@GetMapping("/")
+	public ResponseEntity<ResponseAuthorDto> get(
 			@AuthenticationPrincipal Jwt jwt) {
 		
-		return ResponseEntity.ok(authorService.get(authorId, UUID.fromString(jwt.getSubject())));
+		return ResponseEntity.ok(authorService.get(UUID.fromString(jwt.getSubject())));
 	}
 	
 	@GetMapping("/gets")

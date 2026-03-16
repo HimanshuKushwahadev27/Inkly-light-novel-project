@@ -15,7 +15,7 @@ public interface AuthorService {
 	
 	public String delete(UUID authorId, UUID keycloakId);
 	
-	public ResponseAuthorDto get(UUID authorId, UUID keycloakId);
+	public ResponseAuthorDto get( UUID keycloakId);
 	
 	public List<ResponseAuthorDtoForAdmin> getAuthors();
 }

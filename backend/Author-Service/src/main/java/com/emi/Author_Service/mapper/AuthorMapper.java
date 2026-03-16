@@ -20,7 +20,6 @@ public class AuthorMapper {
 		author.setCreatedAt(Instant.now());
 		author.setKeycloakId(keycloakId);
 		author.setPenName(request.penName());
-		author.setProfileImageUrl(request.profileImageUrl());
 		author.setUpdatedAt(Instant.now());
 		author.setVerified(false);
 		author.setDeleted(false);
@@ -33,7 +32,6 @@ public class AuthorMapper {
 				author.getId(),
 				author.getPenName(),
 				author.getBio(),
-				author.getProfileImageUrl(),
 				author.getVerified(),
 				author.getCreatedAt()
 				);
@@ -44,7 +42,6 @@ public class AuthorMapper {
 				author.getId(),
 				author.getPenName(),
 				author.getBio(),
-				author.getProfileImageUrl(),
 				author.getVerified(),
 				author.getCreatedAt(),
 				author.isDeleted(),
@@ -56,7 +53,6 @@ public class AuthorMapper {
 	public void toUpdate(RequestAuthorDto request,  Author author) {
 		author.setPenName(request.penName());
 		author.setBio(request.bio());
-		author.setProfileImageUrl(request.profileImageUrl());
 	}
 
 }

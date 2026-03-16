@@ -30,9 +30,6 @@ public class Author {
     @Column(name = "bio", length = 2000)
     private String bio;
 
-    @Column(name = "profile_image_url")
-    private String profileImageUrl;
-
     @Column(name = "verified", nullable = false)
     private Boolean verified;
 

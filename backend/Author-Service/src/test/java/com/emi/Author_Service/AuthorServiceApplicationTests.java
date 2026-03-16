@@ -60,7 +60,6 @@ class AuthorServiceApplicationTests {
 		author.setKeycloakId(keycloakId);
 		author.setUpdatedAt(Instant.now());
 		author.setVerified(false);
-		author.setProfileImageUrl("https://cdn.library.com/authors/profile123.png");
 		author = authorRepo.save(author);
 		
 		authorId= author.getId();
