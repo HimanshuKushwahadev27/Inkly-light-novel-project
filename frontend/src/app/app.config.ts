@@ -11,7 +11,11 @@ import { provideToastr } from 'ngx-toastr';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideToastr({
-        positionClass: 'toast-top-left'
+    positionClass: 'toast-top-right',
+    timeOut: 3000,
+    closeButton: true,
+    progressBar: true,
+    preventDuplicates: true
     }),
     provideHttpClient(withInterceptors([authInterceptor, idempotencyInterceptor])),
     provideBrowserGlobalErrorListeners(),

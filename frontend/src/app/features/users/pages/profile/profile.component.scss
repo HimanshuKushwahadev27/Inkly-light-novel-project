@@ -17,6 +17,13 @@
   box-shadow: 0 15px 40px rgba(233,30,99,0.18);
 }
 
+.user-join-date{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:14px;
+  color:#777;
+}
 
 .profile-header {
   display: flex;
@@ -37,6 +44,10 @@
 
 .update-profile{
   margin-left: auto;
+    display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
 } 
 
 .avatar {

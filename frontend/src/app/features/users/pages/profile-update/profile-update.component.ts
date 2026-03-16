@@ -40,7 +40,7 @@ export class ProfileUpdateComponent {
   updateUser(){
     if(this.updateForm.invalid)return;
 
-    this.http.post('/api/user/update', this.updateForm.value)
+    this.http.patch('/api/user/update', this.updateForm.value)
       .subscribe({
         next: () =>{
        this.toastr.success(

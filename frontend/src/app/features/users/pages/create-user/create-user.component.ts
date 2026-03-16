@@ -10,7 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-create-user',
   standalone: true,
-  imports: [
+  imports:
+   [
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,

@@ -30,7 +30,7 @@ export const routes: Routes = [
  {
   canActivate: [profileGuard],
   path: 'register-author',
-  loadComponent: () => import('./features/author/create-author/create-author.component')
+  loadComponent: () => import('./features/author/pages/create-author/create-author.component')
     .then(m => m.CreateAuthorComponent)
  },
  {

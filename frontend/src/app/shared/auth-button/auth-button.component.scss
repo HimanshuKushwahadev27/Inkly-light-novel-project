@@ -1,69 +1,107 @@
+/* PROFILE BUTTON */
+
 .profile-btn {
   display: flex;
   align-items: center;
   gap: 8px;
-
+  padding: 0;
+  font-weight: 600;
+  color: #8E0E4A;
 }
+
+.profile-btn:hover {
+  color: #DE3163;
+  background-color: rgba(255, 92, 119, 0.12);
+}
+
+
+/* AVATAR */
 
 .avatar {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   object-fit: cover;
-  
 }
+
+.avatar-large{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+}
+
+
+/* USERNAME */
 
 .username {
   font-weight: 500;
 }
 
+
+/* SIGN IN BUTTON */
+
 .signin-btn{
-  background-color: #FF5C77;
+  background-color:#FF5C77;
   color:white;
 }
 
 .signin-btn:hover{
-  background-color: #ff3d5f;
+  background-color:#ff3d5f;
 }
 
 
-.nav-btn:hover {
-  background-color: rgba(255, 92, 119, 0.12);
-    color: #DE3163;
+/* NAV BUTTON */
 
-}
 .nav-btn{
-    color: #8E0E4A;
+  color:#8E0E4A;
 }
 
-.mat-mdc-menu-item:hover {
-  background-color: rgba(255, 92, 119, 0.12);
-  color: #DE3163;
+.nav-btn:hover{
+  background-color:rgba(255, 92, 119, 0.12);
+  color:#DE3163;
 }
 
-.mat-mdc-menu-item:hover mat-icon {
-  color: #FF5C77;
-}
+
+/* MENU ITEMS */
 
 .mat-mdc-menu-item{
-    color: #8E0E4A;
+  color:#8E0E4A;
 }
 
 .mat-mdc-menu-item mat-icon{
-    color: #8E0E4A;
+  color:#8E0E4A;
+}
+
+.mat-mdc-menu-item:hover{
+  background-color:rgba(255, 92, 119, 0.12);
+  color:#DE3163;
+}
+
+.mat-mdc-menu-item:hover mat-icon{
+  color:#FF5C77;
 }
 
 
+/* PROFILE SECTION INSIDE MENU */
 
-
-
-.profile-btn {
-  font-weight: 1200;
-  color: #8E0E4A;
+.menu-profile{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 16px;
+  cursor:pointer;
 }
 
-.profile-btn:hover {
-    color: #DE3163;
+.menu-profile:hover{
+  background:rgba(255,92,119,0.1);
+}
 
-  background-color: rgba(255, 92, 119, 0.12);
+.menu-username{
+  font-weight:600;
+  color:#8E0E4A;
+}
+
+.menu-view{
+  font-size:13px;
+  color:#777;
 }

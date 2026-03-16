@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
+import { UUID } from 'crypto';
 import { Observable } from 'rxjs';
 
 
 export interface userProfile{
+  id: UUID;
   displayName: string;
-  profileImageurl ?: string;
+  imageurl ?: string;
   bio ?: string;
+  createdAt: Date;
 }
 @Injectable({
   providedIn: 'root',

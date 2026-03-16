@@ -21,7 +21,12 @@
           <mat-icon>settings</mat-icon>
           Edit Profile
         </button>
+
+        <div class="user-join-date">
+          Joined {{ userService.currentUser()?.createdAt | date:'MMM yyyy' }}
+        </div>
       </div>
+
     </div>
 
     <div class="profile-content">

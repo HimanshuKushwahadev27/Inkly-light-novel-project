@@ -10,57 +10,69 @@
 
 @if (authService.isAuthenticated()) {
 
-<button mat-raised-button class="author-btn" [routerLink]="['/register-author']"  >
+<button mat-raised-button class="author-btn" [routerLink]="['/register-author']">
   <mat-icon>edit</mat-icon>
   Write
 </button>
-<button mat-button class="nav-btn" [routerLink]="['/user-library']"  >
+
+<button mat-button class="nav-btn" [routerLink]="['/user-library']">
   My Library
 </button>
 
+<!-- PROFILE BUTTON -->
 <button mat-button class="profile-btn" [matMenuTriggerFor]="profileMenu">
-
-@if (userService.currentUser()) {
 
   <img
     class="avatar"
     [src]="userService.currentUser()?.imageurl || 'assets/default-avatar.png'"
   />
 
-  <span class="username">
-    {{ userService.currentUser()?.displayName }}
-  </span>
-
-}
-
-
 </button>
 
-<mat-menu #profileMenu="matMenu">
+<!-- DROPDOWN MENU -->
+<mat-menu #profileMenu="matMenu" class="profile-menu">
 
-<button mat-menu-item  routerLink="/user-profile">
-  <mat-icon>person</mat-icon>
-  Profile
-</button>
+  <!-- PROFILE PREVIEW -->
+  <div class="menu-profile" routerLink="/user-profile">
 
-<button mat-menu-item  routerLink="/user-bookmark">
-  <mat-icon>bookmark</mat-icon>
-  Bookmarks
-</button>
+    <img
+      class="avatar-large"
+      [src]="userService.currentUser()?.imageurl || 'assets/default-avatar.png'"
+    />
 
-<button mat-menu-item>
-  <mat-icon>settings</mat-icon>
-  Settings
-</button>
+    <div>
+      <div class="menu-username">
+        {{ userService.currentUser()?.displayName }}
+      </div>
 
-<mat-divider></mat-divider>
+      <div class="menu-view">
+        View profile
+      </div>
+    </div>
 
-<button mat-menu-item (click)="authService.logout()">
-  <mat-icon>logout</mat-icon>
-  Logout
-</button>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <button mat-menu-item routerLink="/user-bookmark">
+    <mat-icon>bookmark</mat-icon>
+    Bookmarks
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon>settings</mat-icon>
+    Settings
+  </button>
+
+  <mat-divider></mat-divider>
+
+  <button mat-menu-item (click)="authService.logout()">
+    <mat-icon>logout</mat-icon>
+    Logout
+  </button>
 
 </mat-menu>
 
 }
+
 </div>
