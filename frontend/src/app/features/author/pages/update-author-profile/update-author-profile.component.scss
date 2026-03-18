@@ -1,0 +1,33 @@
+.create-user{
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  min-height: calc(100vh - 80px);
+}
+
+.create-card {
+  width: 360px;
+  padding: 28px;
+  border-radius: 12px;
+  box-shadow:0 15px 40px rgba(233,30,99,0.18);
+}
+
+.create-card h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+        color: #8E0E4A;
+
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.create-card button {
+  margin-top: 10px;
+  padding: 6px 16px;
+  font-size: 14px;
+  border-radius: 18px;
+}

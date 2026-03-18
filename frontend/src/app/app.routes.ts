@@ -44,5 +44,17 @@ export const routes: Routes = [
   path: 'user-bookmark',
   loadComponent: () => import('./features/users/pages/user-bookmarks/user-bookmarks.component')
     .then(m => m.UserBookmarksComponent)
+ },
+ {
+  canActivate: [profileGuard],
+  path: 'creation-board',
+  loadComponent: () => import('./features/authoring/pages/creation-board/creation-board.component')
+    .then(m => m.CreationBoardComponent)
+ },
+ {
+  canActivate: [profileGuard],
+  path: 'user-profile/update-creator-profile',
+  loadComponent: () => import('./features/author/pages/update-author-profile/update-author-profile.component')
+    .then(m => m.UpdateAuthorProfileComponent)
  }
 ];

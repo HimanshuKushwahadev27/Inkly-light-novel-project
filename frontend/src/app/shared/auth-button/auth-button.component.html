@@ -10,10 +10,19 @@
 
 @if (authService.isAuthenticated()) {
 
-<button mat-raised-button class="author-btn" [routerLink]="['/register-author']">
-  <mat-icon>edit</mat-icon>
-  Write
-</button>
+  @if (!authorService.currentAuthor()){
+  <button mat-raised-button class="author-btn" [routerLink]="['/register-author']">
+    <mat-icon>edit</mat-icon>
+    Write
+  </button>
+  }
+
+  @if (authorService.currentAuthor()){
+    <button mat-raised-button class="author-btn" [routerLink]="['/creation-board']">
+      <mat-icon>edit</mat-icon>
+      My Creations
+    </button>
+  }
 
 <button mat-button class="nav-btn" [routerLink]="['/user-library']">
   My Library

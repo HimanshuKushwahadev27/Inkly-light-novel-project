@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { UserBookmarkService } from '../../service/user-bookmark.service';
 
 @Component({
   selector: 'app-user-bookmarks',
@@ -8,4 +9,7 @@ import { Component } from '@angular/core';
 })
 export class UserBookmarksComponent {
 
+  private bookmarkService = inject(UserBookmarkService);
+
+  
 }

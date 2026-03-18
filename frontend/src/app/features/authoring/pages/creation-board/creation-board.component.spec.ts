@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthorProfileComponent } from './author-profile.component';
+import { CreationBoardComponent } from './creation-board.component';
 
-describe('AuthorProfileComponent', () => {
-  let component: AuthorProfileComponent;
-  let fixture: ComponentFixture<AuthorProfileComponent>;
+describe('CreationBoardComponent', () => {
+  let component: CreationBoardComponent;
+  let fixture: ComponentFixture<CreationBoardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AuthorProfileComponent]
+      imports: [CreationBoardComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AuthorProfileComponent);
+    fixture = TestBed.createComponent(CreationBoardComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

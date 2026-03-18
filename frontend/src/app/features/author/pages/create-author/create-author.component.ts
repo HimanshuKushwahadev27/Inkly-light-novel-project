@@ -34,7 +34,7 @@ export class CreateAuthorComponent {
   createAuthor(){
     if(this.authorForm.invalid) return;
 
-    this.http.post('api/authors/register', this.authorForm.value)
+    this.http.post('/api/authors/register', this.authorForm.value)
       .subscribe({
         next: () => {
           this.toastr.success(

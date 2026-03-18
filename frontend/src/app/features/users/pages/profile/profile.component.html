@@ -14,7 +14,15 @@
       <div class="profile-info">
         <h1>{{ userService.currentUser()?.displayName }}</h1>
         <p>{{ userService.currentUser()?.bio }}</p>
+
+          @if (authorService.currentAuthor()){
+            <div class="pen-name">
+              <p>{{authorService.currentAuthor()?.penName}}</p>
+            </div>
+          }
       </div>
+
+ 
 
       <div class="update-profile">
         <button mat-button class="update-btn" [routerLink]="['/user-profile/update']" routerLinkActive="router-link-active" >
@@ -25,6 +33,14 @@
         <div class="user-join-date">
           Joined {{ userService.currentUser()?.createdAt | date:'MMM yyyy' }}
         </div>
+
+        @if (authorService.currentAuthor()?.isVerified){
+          <div class="verified">
+            <mat-icon>verified</mat-icon>
+            Verified creator
+          </div>
+        }
+
       </div>
 
     </div>
@@ -37,7 +53,29 @@
         <p>Reviews: 0</p>
       </div>
 
+      @if (authorService.currentAuthor()){ 
+        <div class="info-card">
+          <h3>Creator's Thoughts</h3>
+          <p>{{authorService.currentAuthor()?.bio}}</p>
+
+          <div class="user-join-date">
+            Joined as Creator at {{ authorService.currentAuthor()?.createdAt | date:'MMM yyyy' }}
+          </div>
+
+          <div class="update-creator">
+            <button mat-button class="update-btn" [routerLink]="['/user-profile/update-creator-profile']" >
+              <mat-icon>settings</mat-icon>
+              Edit Creator's Profile
+            </button>
+          </div>
+        </div>
+
+
+      }
+
     </div>
+
+
 
     }
 

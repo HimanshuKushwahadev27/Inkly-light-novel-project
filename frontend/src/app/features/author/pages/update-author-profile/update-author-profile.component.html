@@ -1,1 +1,25 @@
-<p>update-author-profile works!</p>
+<div class = "create-user">
+  
+  <div class="create-card">
+
+    <h2>Update creator's profile</h2>
+
+    <form [formGroup]="updateForm" (ngSubmit) = "updateAuthor()">
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Pen Name</mat-label>
+        <input matInput formControlName="penName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Bio</mat-label>
+        <textarea matInput rows="3" formControlName="bio"></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">
+         Join 
+      </button>
+
+    </form>
+  </div>
+</div>

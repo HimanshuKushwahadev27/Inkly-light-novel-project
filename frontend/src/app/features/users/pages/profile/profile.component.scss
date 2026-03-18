@@ -42,6 +42,14 @@
   color: #5b3b4c;
 }
 
+.pen-name p{
+  color: #8E0E4A;
+    font-size: 10px;
+
+}
+
+
+
 .update-profile{
   margin-left: auto;
     display: flex;
@@ -85,10 +93,19 @@
 
 .update-btn.mat-mdc-button{
     color: #8E0E4A;
+    size: 4px;
 }
 
 .update-btn.mat-mdc-button:hover {
     color: #DE3163;
 
   background-color: rgba(255, 92, 119, 0.12);
+}
+
+.verified{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:10px;
+  color:#777;
 }
