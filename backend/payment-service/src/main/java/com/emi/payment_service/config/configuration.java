@@ -7,6 +7,11 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.swagger.v3.oas.models.ExternalDocumentation;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+
 @Configuration
 public class configuration {
 
@@ -25,4 +30,20 @@ public class configuration {
      ObjectMapper objectMapper() {
         return new ObjectMapper();
     }
+
+		 	@Bean
+ 	OpenAPI openApiConfig() {
+ 		return new OpenAPI()
+ 				.info(new Info()
+ 						.title("payment Service API")
+ 						.description("API documentation for payment-service")
+ 						.version("2.0")
+ 						.license(new License()
+ 								.name("Apache 2.0")
+ 								.url("http://springdoc.org")
+ 								))
+ 				.externalDocs(new ExternalDocumentation()
+ 						.description("Link to external documentation")
+ 						.url("https://payment-demo.com/docs"));
+ 	}
 }
