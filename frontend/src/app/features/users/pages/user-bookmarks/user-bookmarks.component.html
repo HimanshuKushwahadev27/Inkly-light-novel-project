@@ -1,1 +1,24 @@
-<p>user-bookmarks works!</p>
+<div class="bookmark-sidebar">
+
+  <h3>Your Bookmarks</h3>
+
+  @if (bookmarkService.bookmarks().length === 0) {
+    <p>No bookmarks yet</p>
+  }
+
+  @for (book of bookmarkService.bookmarks(); track book.id) {
+
+    <div class="bookmark-item">
+
+      <!-- <img [src]="book.coverImage" /> -->
+
+      <div>
+        <h4>{{ book.bookId }}</h4>
+        <p>{{ book.chapterId }}</p>
+      </div>
+
+    </div>
+
+  }
+
+</div>

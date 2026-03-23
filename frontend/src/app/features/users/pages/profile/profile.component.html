@@ -49,29 +49,28 @@
 
       <div class="info-card">
         <h3>Library Activity</h3>
-        <p>Books read: 0</p>
-        <p>Reviews: 0</p>
       </div>
 
       @if (authorService.currentAuthor()){ 
         <div class="info-card">
           <h3>Creator's Thoughts</h3>
           <p>{{authorService.currentAuthor()?.bio}}</p>
+        </div>
+      }
 
-          <div class="user-join-date">
-            Joined as Creator at {{ authorService.currentAuthor()?.createdAt | date:'MMM yyyy' }}
-          </div>
 
           <div class="update-creator">
             <button mat-button class="update-btn" [routerLink]="['/user-profile/update-creator-profile']" >
               <mat-icon>settings</mat-icon>
               Edit Creator's Profile
             </button>
+            <p>
+
+            </p>
+          <div class="user-join-date">
+              Joined as Creator at {{ authorService.currentAuthor()?.createdAt | date:'MMM yyyy' }}
           </div>
-        </div>
-
-
-      }
+          </div>
 
     </div>
 

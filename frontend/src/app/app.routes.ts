@@ -2,6 +2,10 @@ import { Routes } from '@angular/router';
 import { profileGuard } from './core/guards/profile-guard';
 
 export const routes: Routes = [
+  {path:'',
+   loadComponent: () => (import('./features/homepage/homepage.component'))
+      .then(m => m.HomepageComponent)
+  },
  {path : 'genres', 
   canActivate: [profileGuard],
   loadComponent: () =>   import('./features/catalog/pages/genre-page/genre-page.component')
@@ -38,12 +42,6 @@ export const routes: Routes = [
   path: 'user-library',
   loadComponent: () => import('./features/users/pages/user-library/user-library.component')
     .then(m => m.UserLibraryComponent)
- },
-  {
-  canActivate: [profileGuard],
-  path: 'user-bookmark',
-  loadComponent: () => import('./features/users/pages/user-bookmarks/user-bookmarks.component')
-    .then(m => m.UserBookmarksComponent)
  },
  {
   canActivate: [profileGuard],

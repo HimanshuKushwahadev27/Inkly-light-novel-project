@@ -9,7 +9,8 @@ import { UserBookmarkService } from '../../service/user-bookmark.service';
 })
 export class UserBookmarksComponent {
 
-  private bookmarkService = inject(UserBookmarkService);
+  public bookmarkService = inject(UserBookmarkService);
+
 
   
 }

@@ -44,11 +44,19 @@
   <!-- PROFILE PREVIEW -->
   <div class="menu-profile" routerLink="/user-profile">
 
+    @if(userService.currentUser()?.imageurl){
     <img
       class="avatar-large"
-      [src]="userService.currentUser()?.imageurl || 'assets/default-avatar.png'"
+      [src]="userService.currentUser()?.imageurl"
     />
-
+    }
+    @if(!userService.currentUser()?.imageurl){
+    <mat-card-header>
+      <mat-icon mat-card-avatar>person</mat-icon>
+      <mat-card-title>My Profile</mat-card-title>
+    </mat-card-header>
+    }
+    
     <div>
       <div class="menu-username">
         {{ userService.currentUser()?.displayName }}
@@ -63,7 +71,7 @@
 
   <mat-divider></mat-divider>
 
-  <button mat-menu-item routerLink="/user-bookmark">
+  <button mat-menu-item (click)="openBookmarks.emit()">
     <mat-icon>bookmark</mat-icon>
     Bookmarks
   </button>

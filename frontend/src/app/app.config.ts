@@ -9,14 +9,14 @@ import { idempotencyInterceptor } from './core/auth/interceptor/idempotency.inte
 import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideToastr({
-    positionClass: 'toast-top-right',
-    timeOut: 3000,
-    closeButton: true,
-    progressBar: true,
-    preventDuplicates: true
-    }),
+    providers: [
+      provideToastr({
+      positionClass: 'toast-top-left',
+      timeOut: 3000,
+      closeButton: true,
+      progressBar: true,
+      preventDuplicates: true
+      }),
     provideHttpClient(withInterceptors([authInterceptor, idempotencyInterceptor])),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
