@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(BookAlreadyExistsException.class)
 	public ResponseEntity<?> handleBookDuplication(BookAlreadyExistsException ex){
 		return ResponseEntity
-				.status(404)
+				.status(409)
 				.body(ex.getMessage());
 	}
 	
@@ -30,14 +30,14 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(NotAuthorizedException.class)
 	public ResponseEntity<?> notAuthorized(NotAuthorizedException ex){
 		return ResponseEntity
-				.status(404)
+				.status(401)
 				.body(ex.getMessage());
 	}
 	
 	@ExceptionHandler(ChapterDraftExistsException.class)
 	public ResponseEntity<?> chapterDraftExistsHandling(ChapterDraftExistsException ex){
 		return ResponseEntity
-				.status(404)
+				.status(409)
 				.body(ex.getMessage());
 	}
 	

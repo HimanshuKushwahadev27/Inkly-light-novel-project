@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(ContentNotFoundException.class)
 	public ResponseEntity<?> handleBookContentNotFound(ContentNotFoundException ex){
 		return ResponseEntity
-				.status(410)
+				.status(404)
 				.body(ex.getMessage());
 	}
 	
@@ -45,14 +45,14 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(GenreNotFoundException.class)
 	public ResponseEntity<?> handleGenreNotFound(GenreNotFoundException ex){
 		return ResponseEntity
-				.status(410)
+				.status(404)
 				.body(ex.getMessage());
 	}
 	
 	@ExceptionHandler(NotAuthorizedException.class)
 	public ResponseEntity<?> handleNotAuthorized(NotAuthorizedException ex){
 		return ResponseEntity
-				.status(410)
+				.status(401)
 				.body(ex.getMessage());
 	}
 	
