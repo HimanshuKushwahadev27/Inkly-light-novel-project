@@ -30,7 +30,7 @@ Client (Web - Angular)
 ---------------------------------------------------------
 | Infrastructure                                       |
 ---------------------------------------------------------
-| Kafka (Event Bus - AVRO आधारित events)              |
+| Kafka (Event Bus - AVRO events)              |
 | PostgreSQL (Database per service)                    |
 | OpenSearch (Search Engine)                           |
 | Keycloak (Authentication & Authorization)            |
