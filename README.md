@@ -2,7 +2,7 @@
 
 A **production-grade, event-driven digital library platform** built using **Spring Boot microservices, Kafka, OpenSearch, and Docker**.
 
-Inkly enables users to become authors, create and publish content, and allows readers to efficiently discover books through a **highly scalable search system**.
+Inkly enables users to become authors, create and publish content, and allows readers to efficiently discover books through a **highly scalable search system** (elastic search).
 
 ---
 
@@ -20,22 +20,22 @@ Client (Web - Angular)
 ---------------------------------------------------------
 |                Microservices Layer                    |
 ---------------------------------------------------------
-| user-service        author-service                   |
-| authoring-service   catalog-service                 |
-| order-service       payment-service                 |
-| notification-service search-service                 |
+| user-service        author-service                    |
+| authoring-service   catalog-service                   |
+| order-service       payment-service                   |
+| notification-service search-service                   |
 ---------------------------------------------------------
         │
         ▼
 ---------------------------------------------------------
-| Infrastructure                                       |
+| Infrastructure                                        |
 ---------------------------------------------------------
-| Kafka (Event Bus - AVRO आधारित events)              |
-| PostgreSQL (Database per service)                    |
-| OpenSearch (Search Engine)                           |
-| Keycloak (Authentication & Authorization)            |
-| Stripe (Payment Gateway)                             |
-| Flyway (DB Migrations)                               |
+| Kafka (Event Bus - AVRO events)                       |
+| PostgreSQL (Database per service)                     |
+| OpenSearch (Search Engine)                            |
+| Keycloak (Authentication & Authorization)             |
+| Stripe (Payment Gateway)                              |
+| Flyway (DB Migrations)                                |
 ---------------------------------------------------------
 ```
 
